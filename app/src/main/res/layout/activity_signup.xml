@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/logoView4"
-        android:layout_width="218dp"
-        android:layout_height="206dp"
+        android:layout_width="195dp"
+        android:layout_height="183dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
@@ -58,13 +58,13 @@
 
     <Button
         android:id="@+id/btn_login"
-        style="?android:textAppearanceSmall"
+        style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="325dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:background="@color/colorAccent"
+        android:background="@android:color/background_light"
         android:text="@string/action_sign_in_short"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
@@ -111,8 +111,8 @@
         android:layout_height="30dp"
         android:layout_gravity="center|bottom"
         android:layout_marginBottom="20dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_in_button"
-        android:visibility="gone" />
+        app:layout_constraintTop_toBottomOf="@+id/sign_in_button" />
 </android.support.constraint.ConstraintLayout>

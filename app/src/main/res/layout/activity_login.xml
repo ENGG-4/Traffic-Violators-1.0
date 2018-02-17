@@ -58,13 +58,13 @@
 
     <Button
         android:id="@+id/btn_login"
-        style="?android:textAppearanceSmall"
+        style="@style/Widget.AppCompat.Button.Small"
         android:layout_width="325dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:background="@color/colorAccent"
+        android:background="@android:color/background_light"
         android:text="@string/btn_login"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
