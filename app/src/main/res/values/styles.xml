@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="editTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:textColorHint">@color/colorOffWhite</item>
+        <item name="android:backgroundTint">@color/colorOffWhite</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ems">10</item>
+    </style>
 </resources>

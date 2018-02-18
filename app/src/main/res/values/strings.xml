@@ -10,13 +10,14 @@
     <string name="remove_user">Remove user</string>
     <string name="new_pass">New Password</string>
     <string name="title_activity_profile">Firebase</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_register">Register</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="hint_name">Fullname</string>
     <string name="btn_login">LOGIN</string>
-    <string name="btn_link_to_register">Not a member? Get registered now!</string>
-    <string name="btn_link_to_login">Already registered. Login Me!</string>
+    <string name="btn_link_to_register">NOT A MEMBER? REGISTER</string>
+    <string name="btn_link_to_login">ALREADY REGISTERED? LOGIN</string>
     <string name="title_activity_reset_password">ResetPasswordActivity</string>
     <string name="btn_forgot_password">Forgot your password?</string>
     <string name="btn_reset_password">Reset Password</string>
@@ -29,5 +30,5 @@
     <string name="btn_sign_out">Sign Out</string>
     <string name="lbl_forgot_password">Forgot password?</string>
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
-    <string name="thank_you_msg">Thank You, For your SERVICE.</string>
+    <string name="welcome_message">Traffic Violators</string>
 </resources>

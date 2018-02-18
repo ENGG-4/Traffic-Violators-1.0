@@ -1,25 +1,29 @@
 package violators.traffic.com.trafficviolators;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity implements OnClickListener{
+import com.google.firebase.auth.FirebaseAuth;
 
-    Button startbtn;
+public class MainActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        startbtn = (Button) findViewById(R.id.startbutton);
-        startbtn.setOnClickListener(this);
-    }
 
-    @Override
-    public void onClick(View v){
-        setContentView(R.layout.activity_signup);
+        CardView logout = (CardView) findViewById(R.id.btn_logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+            }
+        });
+
     }
 }
