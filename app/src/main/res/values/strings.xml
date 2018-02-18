@@ -12,6 +12,7 @@
     <string name="lbl_forgot_password">Forgot password?</string>
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
     <string name="welcome_message">Traffic Violators</string>
+    <string name="welcome_splashmessage">Traffic Police We Thank You, For your Service</string>
 
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
