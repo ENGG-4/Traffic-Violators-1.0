@@ -6,7 +6,7 @@
 
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorOffWhite">#EEEEEE</color>
-    <color name="yellow">#FFB300</color>
-    <color name="lightGray">#EDEDED</color>
-    <color name="backgroundColor">#FCFCFC</color>
+    <color name="purple">#7C4DFF</color>
+    <color name="green">#00BFA5</color>
+    <color name="pink">#ff4081</color>
 </resources>
