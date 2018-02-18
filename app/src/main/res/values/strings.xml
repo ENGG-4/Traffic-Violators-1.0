@@ -39,4 +39,9 @@
     <string name="title_activity_pending">Pending</string>
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_reset_password">ResetPasswordActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
