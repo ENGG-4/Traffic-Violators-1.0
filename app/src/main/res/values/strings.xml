@@ -35,7 +35,6 @@
     <string name="title_activity_login">Login</string>
     <string name="title_activity_register">Register</string>
     <string name="title_activity_driver">Driver Details</string>
-    <string name="title_activity_report">Report</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_pending">Pending</string>
     <string name="title_activity_profile">Profile</string>
@@ -46,4 +45,25 @@
     <string name="nav_header_text">Dashboard</string>
     <string name="nav_header_text2">Traffic Knight</string>
     <string name="action_settings">Settings</string>
+    
+    <!-- Strings for report activity-->
+    <string name="title_activity_report">Report</string>
+    <string name="hint_vehicleno">Vehicle No.</string>
+    <string name="hint_licenseno">License No.</string>
+    <string name="hint_datetime">Date and time</string>
+    <string name="hint_description">Description(optional)</string>
+    <string name="hint_fine">Fine</string>
+    <string name="btn_addphoto">Add photo</string>
+
+    <string-array name="reason_array">
+        <item>Speed limit</item>
+        <item>Drinking and driving</item>
+        <item>Invalid License</item>
+        <item>Driving by a minor</item>
+        <item>Driving without seat belt</item>
+        <item>Jumping signal</item>
+        <item>Parking violations</item>
+        <item>Not carrying license</item>
+        <item>Other reason</item>
+    </string-array>
 </resources>
