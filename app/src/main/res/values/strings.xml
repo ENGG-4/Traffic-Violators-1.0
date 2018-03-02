@@ -47,13 +47,14 @@
     <string name="action_settings">Settings</string>
     
     <!-- Strings for report activity-->
-    <string name="title_activity_report">Report</string>
+    <string name="title_activity_report">New Report</string>
     <string name="hint_vehicleno">Vehicle No.</string>
     <string name="hint_licenseno">License No.</string>
     <string name="hint_datetime">Date and time</string>
     <string name="hint_description">Description(optional)</string>
     <string name="hint_fine">Fine</string>
     <string name="btn_addphoto">Add photo</string>
+    <string name="textview_reason">Reason</string>
 
     <string-array name="reason_array">
         <item>Speed limit</item>

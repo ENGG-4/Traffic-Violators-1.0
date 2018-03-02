@@ -35,7 +35,7 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
         <activity
-            android:name=".ReportActivity"
+            android:name=".NewReportActivity"
             android:label="@string/title_activity_report">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -72,7 +72,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

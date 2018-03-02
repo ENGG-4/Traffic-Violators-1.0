@@ -1,7 +1,5 @@
 package violators.traffic.com.trafficviolators;
 
-import java.io.InputStream;
-import java.net.URI;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,7 +24,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,7 +33,6 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -46,7 +42,7 @@ import com.google.firebase.storage.UploadTask;
 
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class ReportActivity extends AppCompatActivity {
+public class NewReportActivity extends AppCompatActivity {
 
     private EditText txt_reportDT,txt_vehicleNo,txt_licenseNo,txt_description,txt_fine;
     private Spinner sp_reason;
@@ -58,12 +54,12 @@ public class ReportActivity extends AppCompatActivity {
     String downloadUrl;
 
     private static final int SELECTED_PIC = 1;
-    private String[] galleryPermissions = {android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE};;
+    private String[] galleryPermissions = {android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_report);
+        setContentView(R.layout.activity_newReport);
 
         initialize();
 
@@ -80,7 +76,7 @@ public class ReportActivity extends AppCompatActivity {
         txt_reportDT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(ReportActivity.this, date, myCalendar.get(Calendar.YEAR),
+                new DatePickerDialog(NewReportActivity.this, date, myCalendar.get(Calendar.YEAR),
                         myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
@@ -229,14 +225,14 @@ public class ReportActivity extends AppCompatActivity {
                             reportsDatabase.child(txt_vehicleNo.getText().toString()).child(reportID).setValue(getReport(reportID,downloadUrl));
                             clearReport();
                             progressDialog.dismiss();
-                            Toast.makeText(ReportActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(NewReportActivity.this, "Saved", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            Toast.makeText(ReportActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(NewReportActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -253,15 +249,15 @@ public class ReportActivity extends AppCompatActivity {
     private boolean validate() {
 
         if(txt_vehicleNo.getText().toString().isEmpty()) {
-            Toast.makeText(ReportActivity.this,"Vehicle No. is required",Toast.LENGTH_SHORT).show();
+            Toast.makeText(NewReportActivity.this,"Vehicle No. is required",Toast.LENGTH_SHORT).show();
             return false;
         }
         else if(txt_fine.getText().toString().isEmpty()) {
-            Toast.makeText(ReportActivity.this,"Fine is required",Toast.LENGTH_SHORT).show();
+            Toast.makeText(NewReportActivity.this,"Fine is required",Toast.LENGTH_SHORT).show();
             return false;
         }
         else if(txt_reportDT.getText().toString().isEmpty()) {
-            Toast.makeText(ReportActivity.this,"Date and time is required",Toast.LENGTH_SHORT).show();
+            Toast.makeText(NewReportActivity.this,"Date and time is required",Toast.LENGTH_SHORT).show();
             return false;
         }
         else
