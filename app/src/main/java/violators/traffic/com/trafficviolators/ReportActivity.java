@@ -95,6 +95,14 @@ public class ReportActivity extends AppCompatActivity {
             }
         });
 
+        img_photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (filePath != null)
+                    startActivity(new Intent(Intent.ACTION_VIEW,filePath));
+            }
+        });
+
     }
 
     //Initialize all widgets
@@ -197,7 +205,7 @@ public class ReportActivity extends AppCompatActivity {
         sp_reason.setSelection(0);
 
         downloadUrl = "";
-        filePath = Uri.EMPTY;
+        filePath = null;
     }
 
     //function to save report data in firebase
@@ -210,7 +218,7 @@ public class ReportActivity extends AppCompatActivity {
             progressDialog.setTitle("Saving report...");
             progressDialog.show();
 
-            StorageReference ref = storageRef.child("images/" + UUID.randomUUID().toString());
+            StorageReference ref = storageRef.child("images/" + txt_vehicleNo.getText().toString() + "/" + UUID.randomUUID().toString());
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
