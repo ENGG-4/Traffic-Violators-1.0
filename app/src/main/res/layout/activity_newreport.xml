@@ -3,18 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="violators.traffic.com.trafficviolators.NewReportActivity">
 
     <RelativeLayout
         android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:padding="16dp">
+        android:layout_width="match_parent">
 
         <ImageView
             android:id="@+id/img_photo"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="220dp"
             android:layout_marginBottom="16dp"
             android:scaleType="centerCrop"
             android:clickable="true"
@@ -27,28 +27,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/img_photo"
-            android:layout_marginTop="16dp">
+            android:layout_marginTop="16dp"
+            android:padding="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="@string/textview_reason"
-                    android:textSize="18sp"
-                    android:gravity="center_vertical"/>
-
                 <Spinner
                     android:id="@+id/sp_reason"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:spinnerMode="dialog"
                     android:entries="@array/reason_array"
-                    android:padding="10dp"/>
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:paddingLeft="0dp"/>
+
+                <Switch
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Fine paid"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimaryText"/>
 
             </LinearLayout>
 
@@ -59,10 +64,9 @@
 
                 <EditText
                     android:id="@+id/txt_vehicleNo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    style="@style/editTextReportStyle"
                     android:hint="@string/hint_vehicleno"
-                    android:singleLine="true"/>
+                    android:drawableLeft="@drawable/ic_vehicle"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -73,24 +77,9 @@
 
                 <EditText
                     android:id="@+id/txt_driverLicense"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    style="@style/editTextReportStyle"
                     android:hint="@string/hint_licenseno"
-                    android:singleLine="true"/>
-
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
-
-                <EditText
-                    android:id="@+id/txt_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:hint="@string/hint_description"
-                    android:singleLine="true"/>
+                    android:drawableLeft="@drawable/ic_license"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -108,11 +97,10 @@
 
                     <EditText
                         android:id="@+id/txt_fine"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        style="@style/editTextReportStyle"
                         android:hint="@string/hint_fine"
                         android:inputType="number"
-                        android:singleLine="true"/>
+                        android:drawableLeft="@drawable/ic_fine"/>
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -123,17 +111,31 @@
 
                     <EditText
                         android:id="@+id/txt_reportDT"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        style="@style/editTextReportStyle"
                         android:clickable="true"
                         android:focusable="true"
                         android:inputType="datetime"
                         android:hint="@string/hint_datetime"
-                        android:singleLine="true"/>
+                        android:drawableLeft="@drawable/ic_date"/>
 
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <EditText
+                    android:id="@+id/txt_description"
+                    style="@style/editTextReportStyle"
+                    android:hint="@string/hint_description"
+                    android:drawableLeft="@drawable/ic_report"
+                    android:drawableTint="@color/colorPrimaryText"/>
+
+            </android.support.design.widget.TextInputLayout>
+
         </LinearLayout>
 
         <android.support.design.widget.FloatingActionButton

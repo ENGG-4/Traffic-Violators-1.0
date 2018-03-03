@@ -22,6 +22,20 @@
         <item name="android:drawablePadding">10dp</item>
     </style>
 
+    <style name="editTextReportStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:textColorHint">@color/colorHint</item>
+        <item name="android:backgroundTint">@color/colorHint</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ems">10</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:drawablePadding">5dp</item>
+    </style>
+
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
