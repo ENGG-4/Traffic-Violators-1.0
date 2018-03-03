@@ -10,9 +10,8 @@
     <string name="remove_user">Remove user</string>
     <string name="new_pass">New Password</string>
     <string name="lbl_forgot_password">Forgot password?</string>
-    <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
+    <string name="forgot_password_msg">A password reset email will be sent to the registered Email ID</string>
     <string name="welcome_message">Traffic Violators</string>
-    <string name="welcome_splashmessage">Traffic Police We Thank You, For your Service</string>
 
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
@@ -38,7 +37,7 @@
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_pending">Pending</string>
     <string name="title_activity_profile">Profile</string>
-    <string name="title_activity_reset_password">ResetPasswordActivity</string>
+    <string name="title_activity_reset_password">Reset Password</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

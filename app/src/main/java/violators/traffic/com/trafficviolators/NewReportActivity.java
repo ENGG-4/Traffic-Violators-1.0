@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -59,7 +60,7 @@ public class NewReportActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_newReport);
+        setContentView(R.layout.activity_newreport);
 
         initialize();
 
@@ -105,14 +106,12 @@ public class NewReportActivity extends AppCompatActivity {
     public void initialize() {
         img_photo = (ImageView)findViewById(R.id.img_photo);
         myCalendar = Calendar.getInstance();
-
         sp_reason = (Spinner) findViewById(R.id.sp_reason);
         txt_reportDT = (EditText) findViewById(R.id.txt_reportDT);
         txt_vehicleNo = (EditText) findViewById(R.id.txt_vehicleNo);
         txt_licenseNo = (EditText) findViewById(R.id.txt_driverLicense);
         txt_description = (EditText) findViewById(R.id.txt_description);
         txt_fine = (EditText) findViewById(R.id.txt_fine);
-
         btn_addPhoto = (FloatingActionButton) findViewById(R.id.btn_vehiclephoto);
     }
 
@@ -187,7 +186,7 @@ public class NewReportActivity extends AppCompatActivity {
             datetime = new SimpleDateFormat("dd-MM-yy HH:mm:ss").parse(txt_reportDT.getText().toString());
         }
         catch(ParseException e) { }
-        return new Report(reportID,licenseNo,reason,description,fine,datetime,photoUrl,uid);
+        return new Report(vehicleNo,licenseNo,reason,description,fine,datetime,photoUrl,uid);
     }
 
     //function to clear report form
@@ -220,9 +219,12 @@ public class NewReportActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             downloadUrl = taskSnapshot.getDownloadUrl().toString();
+
                             DatabaseReference reportsDatabase = FirebaseDatabase.getInstance().getReference("reports");
                             String reportID = reportsDatabase.push().getKey();
-                            reportsDatabase.child(txt_vehicleNo.getText().toString()).child(reportID).setValue(getReport(reportID,downloadUrl));
+
+                            reportsDatabase.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(reportID).setValue(getReport(reportID,downloadUrl));
+
                             clearReport();
                             progressDialog.dismiss();
                             Toast.makeText(NewReportActivity.this, "Saved", Toast.LENGTH_SHORT).show();

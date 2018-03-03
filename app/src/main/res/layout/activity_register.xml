@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/colorWhite"
-    tools:context="violators.traffic.com.trafficviolators.LoginActivity">
+    tools:context="violators.traffic.com.trafficviolators.RegisterActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,18 +22,19 @@
             android:textColor="@color/colorWhite"
             android:textSize="42sp"
             android:gravity="center"/>
+
     </LinearLayout>
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="-32dp"
+        android:layout_marginTop="-48dp"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="24dp"
         app:cardCornerRadius="4dp"
         android:elevation="8dp"
-        android:layout_weight="8"
-        app:cardElevation="8dp">
+        app:cardElevation="8dp"
+        android:layout_weight="10">
 
 
         <LinearLayout
@@ -46,21 +47,36 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="LOGIN"
+                android:text="REGISTER"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
                 android:textSize="24sp"
                 android:gravity="center"/>
 
             <EditText
-                android:id="@+id/email"
+                android:id="@+id/txt_fullname"
+                style="@style/editTextStyle"
+                android:hint="Full Name"
+                android:inputType="textPersonName"
+                android:drawableEnd="@drawable/ic_name"/>
+
+            <EditText
+                android:id="@+id/txt_dob"
+                style="@style/editTextStyle"
+                android:hint="Date of Birth"
+                android:clickable="true"
+                android:inputType="datetime"
+                android:drawableEnd="@drawable/ic_date"/>
+
+            <EditText
+                android:id="@+id/txt_email"
                 style="@style/editTextStyle"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:drawableEnd="@drawable/ic_email"/>
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/txt_password"
                 style="@style/editTextStyle"
                 android:hint="@string/hint_password"
                 android:imeOptions="actionUnspecified"
@@ -68,21 +84,8 @@
                 tools:focusableInTouchMode="true"
                 android:drawableEnd="@drawable/ic_lock"/>
 
-            <Button
-                android:id="@+id/btn_reset_password"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@null"
-                android:focusable="false"
-                android:text="@string/btn_forgot_password"
-                android:textAlignment="viewStart"
-                android:textAllCaps="false"
-                android:textColor="@color/colorPrimaryText"
-                android:textSize="16sp"/>
-
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/btn_login"
+                android:id="@+id/btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -103,12 +106,12 @@
         android:visibility="invisible"/>
 
     <Button
-        android:id="@+id/btn_signup"
+        android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight=".5"
         android:background="@null"
-        android:text="@string/btn_link_to_register"
+        android:text="@string/btn_link_to_login"
         android:textColor="#888888"
         android:textSize="16sp"
         android:gravity="center"/>

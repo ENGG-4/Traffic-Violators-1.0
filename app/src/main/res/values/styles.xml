@@ -9,12 +9,17 @@
     </style>
 
     <style name="editTextStyle" parent="Widget.AppCompat.EditText">
-        <item name="android:textColorHint">@color/colorOffWhite</item>
-        <item name="android:backgroundTint">@color/colorOffWhite</item>
-        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColorHint">@color/colorHint</item>
+        <item name="android:backgroundTint">@color/colorHint</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
         <item name="android:singleLine">true</item>
         <item name="android:maxLines">1</item>
         <item name="android:ems">10</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:drawablePadding">10dp</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

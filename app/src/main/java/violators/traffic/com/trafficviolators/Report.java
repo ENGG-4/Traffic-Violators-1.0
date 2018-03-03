@@ -5,14 +5,10 @@ import android.net.Uri;
 import java.net.URL;
 import java.util.Date;
 
-/**
- * Created by Ivan D'Souza on 01-Mar-18.
- */
-
 public class Report {
 
-    private String reportID;
     private String userID;
+    private String vehicleNo;
     private String licenseNo;
     private String reason;
     private String description;
@@ -20,8 +16,7 @@ public class Report {
     private Date datetime;
     private String photoURL;
 
-    public Report(String reportID, String licenseNo, String reason, String description, int fine, Date datetime, String photoURL,String userID) {
-        this.reportID = reportID;
+    public Report(String vehicleNo, String licenseNo, String reason, String description, int fine, Date datetime, String photoURL,String userID) {
         this.licenseNo = licenseNo;
         this.reason = reason;
         this.description = description;
@@ -31,20 +26,20 @@ public class Report {
         this.userID = userID;
     }
 
-    public String getReportID() {
-        return reportID;
-    }
-
-    public void setReportID(String reportID) {
-        this.reportID = reportID;
-    }
-
     public String getUserID() {
         return userID;
     }
 
     public void setUserID(String userID) {
         this.userID = userID;
+    }
+
+    public String getVehicleNo() {
+        return vehicleNo;
+    }
+
+    public void setVehicleNo(String vehicleNo) {
+        this.vehicleNo = vehicleNo;
     }
 
     public String getLicenseNo() {
