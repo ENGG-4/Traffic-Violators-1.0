@@ -2,6 +2,7 @@ package violators.traffic.com.trafficviolators;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.design.widget.NavigationView;
@@ -16,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,12 +36,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         initializeNavigationDrawer();
-        initializeTabLayout();
     }
 
     public void initializeNavigationDrawer() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_report);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this ,ReportActivity.class));
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -75,30 +82,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void initializeTabLayout() {
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
-
-        ViewPageAdapter adapter = new ViewPageAdapter(getSupportFragmentManager());
-        adapter.AddFragment(new DashboardFragment(),"Dashboard");
-        adapter.AddFragment(new ReportFragment(),"Report");
-
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
-
-        LinearLayout tabLinearLayout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        TextView tabContent = (TextView) tabLinearLayout.findViewById(R.id.txtLabel);
-        tabContent.setText("Dashboard");
-        tabContent.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_dashboard_white, 0, 0, 0);
-        tabLayout.getTabAt(0).setCustomView(tabContent);
-
-        tabLinearLayout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabContent = (TextView) tabLinearLayout.findViewById(R.id.txtLabel);
-        tabContent.setText("Report");
-        tabContent.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_report_white, 0, 0, 0);
-        tabLayout.getTabAt(1).setCustomView(tabContent);
-    }
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -111,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.menu_actionbar, menu);
         return true;
     }
 
@@ -134,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_driver) {
             startActivity(new Intent(MainActivity.this,DriverActivity.class));
         } else if (id == R.id.nav_report) {
-            startActivity(new Intent(MainActivity.this,NewReportActivity.class));
+            startActivity(new Intent(MainActivity.this,ReportActivity.class));
         } else if (id == R.id.nav_pending) {
             startActivity(new Intent(MainActivity.this,PendingActivity.class));
         } else if (id == R.id.nav_settings) {

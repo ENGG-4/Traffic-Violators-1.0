@@ -30,7 +30,7 @@
     <string name="btn_start">START</string>
     <string name="btn_sign_out">Sign Out</string>
 
-    <string name="title_activity_main">Firebase</string>
+    <string name="title_activity_main">Home</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_register">Register</string>
     <string name="title_activity_driver">Driver Details</string>
@@ -44,9 +44,9 @@
     <string name="nav_header_text">Dashboard</string>
     <string name="nav_header_text2">Traffic Knight</string>
     <string name="action_settings">Settings</string>
-    
+
     <!-- Strings for report activity-->
-    <string name="title_activity_report">New Report</string>
+    <string name="title_activity_report">Report</string>
     <string name="hint_vehicleno">Vehicle No.</string>
     <string name="hint_licenseno">License No.</string>
     <string name="hint_datetime">Date and time</string>

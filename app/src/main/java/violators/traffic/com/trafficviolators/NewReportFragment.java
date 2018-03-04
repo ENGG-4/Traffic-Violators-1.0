@@ -1,12 +1,5 @@
 package violators.traffic.com.trafficviolators;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.UUID;
-
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -19,11 +12,15 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -33,7 +30,6 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -41,9 +37,19 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.UUID;
+
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class NewReportActivity extends AppCompatActivity {
+import static android.app.Activity.RESULT_OK;
+
+
+public class NewReportFragment extends Fragment {
 
     private EditText txt_reportDT,txt_vehicleNo,txt_licenseNo,txt_description,txt_fine;
     private Spinner sp_reason;
@@ -57,12 +63,15 @@ public class NewReportActivity extends AppCompatActivity {
     private static final int SELECTED_PIC = 1;
     private String[] galleryPermissions = {android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_newreport);
+    public NewReportFragment() { }
 
-        initialize();
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_newreport, container, false);
+        setHasOptionsMenu(true);
+
+        initialize(view);
 
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -77,12 +86,11 @@ public class NewReportActivity extends AppCompatActivity {
         txt_reportDT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(NewReportActivity.this, date, myCalendar.get(Calendar.YEAR),
+                new DatePickerDialog(getActivity(), date, myCalendar.get(Calendar.YEAR),
                         myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-
 
         btn_addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,19 +108,20 @@ public class NewReportActivity extends AppCompatActivity {
             }
         });
 
+        return view;
     }
 
     //Initialize all widgets
-    public void initialize() {
-        img_photo = (ImageView)findViewById(R.id.img_photo);
+    public void initialize(View view) {
+        img_photo = (ImageView) view.findViewById(R.id.img_photo);
         myCalendar = Calendar.getInstance();
-        sp_reason = (Spinner) findViewById(R.id.sp_reason);
-        txt_reportDT = (EditText) findViewById(R.id.txt_reportDT);
-        txt_vehicleNo = (EditText) findViewById(R.id.txt_vehicleNo);
-        txt_licenseNo = (EditText) findViewById(R.id.txt_driverLicense);
-        txt_description = (EditText) findViewById(R.id.txt_description);
-        txt_fine = (EditText) findViewById(R.id.txt_fine);
-        btn_addPhoto = (FloatingActionButton) findViewById(R.id.btn_vehiclephoto);
+        sp_reason = (Spinner) view.findViewById(R.id.sp_reason);
+        txt_reportDT = (EditText) view.findViewById(R.id.txt_reportDT);
+        txt_vehicleNo = (EditText) view.findViewById(R.id.txt_vehicleNo);
+        txt_licenseNo = (EditText) view.findViewById(R.id.txt_driverLicense);
+        txt_description = (EditText) view.findViewById(R.id.txt_description);
+        txt_fine = (EditText) view.findViewById(R.id.txt_fine);
+        btn_addPhoto = (FloatingActionButton) view.findViewById(R.id.btn_vehiclephoto);
     }
 
     //Updates date and time in edittext after selection in datetime picker
@@ -124,7 +133,7 @@ public class NewReportActivity extends AppCompatActivity {
 
     //function to get image from gallery and set as source to imageview widget
     @Override
-    protected void onActivityResult(int requestCode, final int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, final int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case SELECTED_PIC:
@@ -132,14 +141,14 @@ public class NewReportActivity extends AppCompatActivity {
                     filePath = data.getData();
                     String[] projection = { MediaStore.Images.Media.DATA };
 
-                    Cursor cursor = getContentResolver().query(filePath, projection, null, null, null);
+                    Cursor cursor =  getActivity().getContentResolver().query(filePath, projection, null, null, null);
                     cursor.moveToFirst();
 
                     int columnIndex = cursor.getColumnIndex(projection[0]);
                     String filepath = cursor.getString(columnIndex);
                     cursor.close();
 
-                    if (!EasyPermissions.hasPermissions(this, galleryPermissions)) {
+                    if (!EasyPermissions.hasPermissions(getContext(), galleryPermissions)) {
                         EasyPermissions.requestPermissions(this, "Access for storage",
                                 101, galleryPermissions);
                     }
@@ -154,11 +163,9 @@ public class NewReportActivity extends AppCompatActivity {
         }
     }
 
-    //function to add save button in actionbar
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar_report, menu);
-        return super.onCreateOptionsMenu(menu);
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     //function to process selection of option in action bar
@@ -167,7 +174,7 @@ public class NewReportActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.btn_saveReport) {
-           saveData();
+            saveData();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -209,7 +216,7 @@ public class NewReportActivity extends AppCompatActivity {
             FirebaseStorage storage = FirebaseStorage.getInstance();
             StorageReference storageRef = storage.getReference();
 
-            final ProgressDialog progressDialog = new ProgressDialog(this);
+            final ProgressDialog progressDialog = new ProgressDialog(getContext());
             progressDialog.setTitle("Saving report...");
             progressDialog.show();
 
@@ -227,14 +234,14 @@ public class NewReportActivity extends AppCompatActivity {
 
                             clearReport();
                             progressDialog.dismiss();
-                            Toast.makeText(NewReportActivity.this, "Saved", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            Toast.makeText(NewReportActivity.this, "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -251,15 +258,15 @@ public class NewReportActivity extends AppCompatActivity {
     private boolean validate() {
 
         if(txt_vehicleNo.getText().toString().isEmpty()) {
-            Toast.makeText(NewReportActivity.this,"Vehicle No. is required",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"Vehicle No. is required",Toast.LENGTH_SHORT).show();
             return false;
         }
         else if(txt_fine.getText().toString().isEmpty()) {
-            Toast.makeText(NewReportActivity.this,"Fine is required",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"Fine is required",Toast.LENGTH_SHORT).show();
             return false;
         }
         else if(txt_reportDT.getText().toString().isEmpty()) {
-            Toast.makeText(NewReportActivity.this,"Date and time is required",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(),"Date and time is required",Toast.LENGTH_SHORT).show();
             return false;
         }
         else

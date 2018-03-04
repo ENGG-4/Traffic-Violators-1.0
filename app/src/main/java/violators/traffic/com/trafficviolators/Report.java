@@ -1,8 +1,5 @@
 package violators.traffic.com.trafficviolators;
 
-import android.net.Uri;
-
-import java.net.URL;
 import java.util.Date;
 
 public class Report {
@@ -16,7 +13,11 @@ public class Report {
     private Date datetime;
     private String photoURL;
 
-    public Report(String vehicleNo, String licenseNo, String reason, String description, int fine, Date datetime, String photoURL,String userID) {
+    public Report() {
+    }
+
+    public Report(String vehicleNo, String licenseNo, String reason, String description, int fine, Date datetime, String photoURL, String userID) {
+        this.vehicleNo = vehicleNo;
         this.licenseNo = licenseNo;
         this.reason = reason;
         this.description = description;
