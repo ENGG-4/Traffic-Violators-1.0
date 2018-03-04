@@ -165,6 +165,7 @@ public class NewReportFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.findItem(R.id.action_searchReport).setVisible(false);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -173,7 +174,7 @@ public class NewReportFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.btn_saveReport) {
+        if (id == R.id.action_saveReport) {
             saveData();
         }
         return super.onOptionsItemSelected(item);

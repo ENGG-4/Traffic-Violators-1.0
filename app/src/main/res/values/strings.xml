@@ -30,7 +30,7 @@
     <string name="btn_start">START</string>
     <string name="btn_sign_out">Sign Out</string>
 
-    <string name="title_activity_main">Home</string>
+    <string name="title_activity_main">Dashboard</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_register">Register</string>
     <string name="title_activity_driver">Driver Details</string>

@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_search"
+        android:id="@+id/action_searchReport"
         android:icon="@drawable/ic_search"
         android:title="Search Vehicle No."
         app:showAsAction="always"
         app:actionViewClass="android.support.v7.widget.SearchView" />
 
     <item
-        android:id="@+id/btn_saveReport"
+        android:id="@+id/action_saveReport"
         android:title="Save"
         app:showAsAction="always" />
 </menu>

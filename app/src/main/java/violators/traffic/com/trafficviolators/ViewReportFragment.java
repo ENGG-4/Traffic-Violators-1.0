@@ -7,6 +7,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -35,6 +38,7 @@ public class ViewReportFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_viewreport,container,false);
+        setHasOptionsMenu(true);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.rw_report);
         reportAdapter = new ReportAdapter(this.getContext(),reportList);
@@ -81,5 +85,21 @@ public class ViewReportFragment extends Fragment {
             return R.drawable.ic_signal;
         else
             return R.drawable.ic_default;
+    }
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.findItem(R.id.action_saveReport).setVisible(false);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    //function to process selection of option in action bar
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_searchReport) {
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -25,6 +26,21 @@ public class ReportActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.action_saveReport:
+                return false;
+            case R.id.action_searchReport:
+                return false;
+            default:
+                break;
+        }
+
+        return false;
+    }
+
     public void initializeTabLayout() {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -35,17 +51,5 @@ public class ReportActivity extends AppCompatActivity {
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-
-        LinearLayout tabLinearLayout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        TextView tabContent = (TextView) tabLinearLayout.findViewById(R.id.txtLabel);
-        tabContent.setText("New");
-        tabContent.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_report_white, 0, 0, 0);
-        tabLayout.getTabAt(0).setCustomView(tabContent);
-
-        tabLinearLayout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabContent = (TextView) tabLinearLayout.findViewById(R.id.txtLabel);
-        tabContent.setText("View");
-        tabContent.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_list, 0, 0, 0);
-        tabLayout.getTabAt(1).setCustomView(tabContent);
     }
 }
