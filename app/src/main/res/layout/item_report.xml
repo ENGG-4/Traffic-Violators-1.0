@@ -60,14 +60,6 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="8dp"/>
 
-        <ImageButton
-            android:id="@+id/btn_item_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:src="@drawable/ic_more"
-            android:layout_alignParentRight="true"/>
-
         <TextView
             android:id="@+id/txt_item_fine"
             android:layout_width="wrap_content"

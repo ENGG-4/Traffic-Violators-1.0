@@ -38,12 +38,6 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
         holder.date.setText(reportItem.getReportDate());
         holder.time.setText(reportItem.getReportTime());
         holder.fine.setText(reportItem.getFine());
-        holder.more.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showPopupMenu(holder.more);
-            }
-        });
     }
 
     @Override
@@ -55,7 +49,6 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView vehicle, reason, date,time,fine;
         public ImageView image;
-        public ImageButton more;
 
         public MyViewHolder(View view) {
             super(view);
@@ -65,35 +58,6 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
             date = (TextView) view.findViewById(R.id.txt_item_date);
             time = (TextView) view.findViewById(R.id.txt_item_time);
             fine = (TextView) view.findViewById(R.id.txt_item_fine);
-            more = (ImageButton) view.findViewById(R.id.btn_item_more);
-        }
-    }
-
-    private void showPopupMenu(View view) {
-        PopupMenu popup = new PopupMenu(context, view);
-        MenuInflater inflater = popup.getMenuInflater();
-        inflater.inflate(R.menu.menu_reportlist, popup.getMenu());
-        popup.setOnMenuItemClickListener(new MyMenuItemClickListener());
-        popup.show();
-    }
-
-    class MyMenuItemClickListener implements PopupMenu.OnMenuItemClickListener {
-
-        public MyMenuItemClickListener() {
-        }
-
-        @Override
-        public boolean onMenuItemClick(MenuItem menuItem) {
-            switch (menuItem.getItemId()) {
-                case R.id.action_edit:
-
-                    return true;
-                case R.id.action_delete:
-
-                    return true;
-                default:
-            }
-            return false;
         }
     }
 }

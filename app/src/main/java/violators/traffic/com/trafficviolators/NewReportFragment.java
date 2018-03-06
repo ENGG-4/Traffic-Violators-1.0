@@ -231,7 +231,7 @@ public class NewReportFragment extends Fragment {
                             DatabaseReference reportsDatabase = FirebaseDatabase.getInstance().getReference("reports");
                             String reportID = reportsDatabase.push().getKey();
 
-                            reportsDatabase.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(reportID).setValue(getReport(reportID,downloadUrl));
+                            reportsDatabase.child(reportID).setValue(getReport(reportID,downloadUrl));
 
                             clearReport();
                             progressDialog.dismiss();
