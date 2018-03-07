@@ -32,7 +32,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ResetPasswordActivity"
-            android:label="@string/title_activity_reset_password">
+            android:label="@string/title_activity_reset_password"
+            android:theme="@style/AppTheme.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
@@ -76,7 +77,8 @@
 
         <activity
             android:name=".ReportActivity"
-            android:label="@string/title_activity_report">
+            android:label="@string/title_activity_report"
+            android:launchMode = "singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />

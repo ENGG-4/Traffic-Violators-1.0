@@ -4,12 +4,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 public class ReportActivity extends AppCompatActivity {
 
@@ -47,7 +44,7 @@ public class ReportActivity extends AppCompatActivity {
 
         ViewPageAdapter adapter = new ViewPageAdapter(getSupportFragmentManager());
         adapter.AddFragment(new NewReportFragment(),"New Report");
-        adapter.AddFragment(new ViewReportFragment(),"View Report");
+        adapter.AddFragment(new HistoryFragment(),"History");
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);

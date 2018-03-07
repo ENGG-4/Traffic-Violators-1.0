@@ -8,10 +8,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHolder> {
@@ -45,6 +48,11 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
         return reportList.size();
     }
 
+    public void setFilter(List<ReportListItem> list) {
+        reportList = new ArrayList<>();
+        reportList.addAll(list);
+        notifyDataSetChanged();
+    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView vehicle, reason, date,time,fine;
