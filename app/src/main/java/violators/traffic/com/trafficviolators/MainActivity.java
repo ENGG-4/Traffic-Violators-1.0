@@ -105,6 +105,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.action_settings) {
             startActivity(new Intent(MainActivity.this,SettingsActivity.class));
         }
+        else if(id == R.id.action_search) {
+            startActivity(new Intent(MainActivity.this,SearchActivity.class));
+        }
 
         return super.onOptionsItemSelected(item);
     }

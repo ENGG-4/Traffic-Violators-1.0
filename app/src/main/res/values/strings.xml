@@ -37,6 +37,7 @@
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_pending">Pending</string>
     <string name="title_activity_profile">Profile</string>
+    <string name="title_activity_search">Search</string>
     <string name="title_activity_reset_password">Reset Password</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -65,5 +66,10 @@
         <item>Parking violations</item>
         <item>Not carrying license</item>
         <item>Other reason</item>
+    </string-array>
+
+    <string-array name="filter_array">
+        <item>Vehicle</item>
+        <item>License</item>
     </string-array>
 </resources>

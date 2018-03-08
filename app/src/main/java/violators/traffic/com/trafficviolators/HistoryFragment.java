@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,7 +43,7 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
         View view = inflater.inflate(R.layout.fragment_history,container,false);
         setHasOptionsMenu(true);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.rw_report);
+        recyclerView = (RecyclerView) view.findViewById(R.id.rv_report);
         reportAdapter = new ReportAdapter(this.getContext(),reportList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
@@ -52,13 +53,11 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
     }
 
     public void setReportList() {
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference databaseRef = database.getReference().child("reports");
-        Query query = databaseRef.orderByChild("userID").equalTo(FirebaseAuth.getInstance().getUid());
-        databaseRef.addValueEventListener(new ValueEventListener() {
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
+        Query query = databaseRef.child("reports").orderByChild("userID").equalTo(FirebaseAuth.getInstance().getUid());
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 reportList.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Report report = postSnapshot.getValue(Report.class);
@@ -113,14 +112,12 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
 
         super.onCreateOptionsMenu(menu, inflater);
     }
-
     @Override
     public boolean onQueryTextChange(String searchText) {
         final List<ReportListItem> filteredList = filter(reportList, searchText);
         reportAdapter.setFilter(filteredList);
         return true;
     }
-
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
