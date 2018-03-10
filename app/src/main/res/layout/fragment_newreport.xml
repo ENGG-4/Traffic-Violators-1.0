@@ -6,7 +6,8 @@
 
     <RelativeLayout
         android:layout_height="match_parent"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:background="@color/colorWhite">
 
         <ImageView
             android:id="@+id/img_photo"
@@ -40,9 +41,7 @@
                     android:spinnerMode="dialog"
                     android:entries="@array/reason_array"
                     android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginRight="10dp"
-                    android:paddingLeft="0dp"/>
+                    android:paddingBottom="10dp"/>
 
                 <Switch
                     android:id="@+id/switch_fine"
@@ -50,6 +49,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Fine paid"
+                    android:gravity="center|center_vertical"
                     android:textSize="16sp"
                     android:textColor="@color/colorPrimaryText"/>
 
@@ -129,8 +129,7 @@
                     android:id="@+id/txt_description"
                     style="@style/editTextReportStyle"
                     android:hint="@string/hint_description"
-                    android:drawableLeft="@drawable/ic_description"
-                    android:drawableTint="@color/colorPrimaryText"/>
+                    android:drawableLeft="@drawable/ic_description_default"/>
 
             </android.support.design.widget.TextInputLayout>
 

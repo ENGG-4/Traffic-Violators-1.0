@@ -7,7 +7,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
 
         <ImageView
             android:id="@+id/img_photo"
@@ -26,15 +27,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="24dp"
-                android:paddingBottom="24dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
+                android:padding="16dp">
 
                 <ImageView
                     android:id="@+id/txt_view_img1"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginRight="24dp"
                     android:layout_alignParentStart="true"
                     android:src="@drawable/ic_vehicle_primary"/>
@@ -54,7 +52,7 @@
                     android:layout_below="@id/txt_vehicleNoTitle"
                     android:layout_marginTop="4dp"
                     android:layout_toEndOf="@id/txt_view_img1"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
                 <android.support.v4.widget.Space
@@ -80,7 +78,7 @@
                     android:layout_marginTop="4dp"
                     android:layout_toEndOf="@id/space"
                     android:layout_below="@id/txt_licenseNoTitle"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textAppearance="@android:style/TextAppearance.Material.Large"/>
 
             </RelativeLayout>
@@ -93,15 +91,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="24dp"
-                android:paddingBottom="24dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
+                android:padding="16dp">
 
                 <ImageView
                     android:id="@+id/txt_view_img2"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginRight="24dp"
                     android:layout_alignParentStart="true"
                     android:src="@drawable/ic_report_primary"/>
@@ -121,7 +116,7 @@
                     android:layout_below="@id/txt_reasonTitle"
                     android:layout_marginTop="4dp"
                     android:layout_toEndOf="@id/txt_view_img2"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
                 <android.support.v4.widget.Space
@@ -147,7 +142,7 @@
                     android:layout_marginTop="4dp"
                     android:layout_toEndOf="@id/space2"
                     android:layout_below="@id/txt_fineTitle"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textAppearance="@android:style/TextAppearance.Material.Large"/>
 
             </RelativeLayout>
@@ -160,15 +155,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="24dp"
-                android:paddingBottom="24dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
+                android:padding="16dp">
 
                 <ImageView
                     android:id="@+id/txt_view_img3"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginRight="24dp"
                     android:layout_alignParentStart="true"
                     android:src="@drawable/ic_time_primary"/>
@@ -187,7 +179,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/txt_timeValue"
                     android:layout_toEndOf="@+id/txt_view_img3"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
                 <android.support.v4.widget.Space
@@ -213,7 +205,7 @@
                     android:layout_marginTop="4dp"
                     android:layout_toEndOf="@id/space3"
                     android:layout_below="@id/txt_timeTitle"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textAppearance="@android:style/TextAppearance.Material.Large"/>
 
             </RelativeLayout>
@@ -226,15 +218,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="24dp"
-                android:paddingBottom="24dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
+                android:padding="16dp">
 
                 <ImageView
                     android:id="@+id/txt_view_img4"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_marginRight="24dp"
                     android:layout_alignParentStart="true"
                     android:src="@drawable/ic_description_primary"/>
@@ -254,10 +243,15 @@
                     android:layout_below="@id/txt_descriptionTitle"
                     android:layout_marginTop="4dp"
                     android:layout_toEndOf="@id/txt_view_img4"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
             </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/colorDivider"/>
 
         </LinearLayout>
 
