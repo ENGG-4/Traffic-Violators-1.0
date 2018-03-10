@@ -25,6 +25,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -53,6 +54,7 @@ public class NewReportFragment extends Fragment {
 
     private EditText txt_reportDT,txt_vehicleNo,txt_licenseNo,txt_description,txt_fine;
     private Spinner sp_reason;
+    private Switch fine_paid;
     private FloatingActionButton btn_addPhoto;
     private ImageView img_photo;
 
@@ -111,7 +113,6 @@ public class NewReportFragment extends Fragment {
         return view;
     }
 
-    //Initialize all widgets
     public void initialize(View view) {
         img_photo = (ImageView) view.findViewById(R.id.img_photo);
         myCalendar = Calendar.getInstance();
@@ -122,16 +123,15 @@ public class NewReportFragment extends Fragment {
         txt_description = (EditText) view.findViewById(R.id.txt_description);
         txt_fine = (EditText) view.findViewById(R.id.txt_fine);
         btn_addPhoto = (FloatingActionButton) view.findViewById(R.id.btn_vehiclephoto);
+        fine_paid = (Switch) view.findViewById(R.id.switch_fine);
     }
 
-    //Updates date and time in edittext after selection in datetime picker
     private void updateDateTime() {
         String myFormat = "dd-MM-yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
         txt_reportDT.setText(sdf.format(myCalendar.getTime()));
     }
 
-    //function to get image from gallery and set as source to imageview widget
     @Override
     public void onActivityResult(int requestCode, final int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -169,7 +169,6 @@ public class NewReportFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    //function to process selection of option in action bar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -180,13 +179,13 @@ public class NewReportFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    //function to create report object and put values in it
-    private Report getReport(String reportID,String photoUrl) {
-        String vehicleNo = txt_vehicleNo.getText().toString();
-        String licenseNo = txt_licenseNo.getText().toString();
+    private Report getReport(String reportID) {
+        String vehicleNo = txt_vehicleNo.getText().toString().toUpperCase();
+        String licenseNo = txt_licenseNo.getText().toString().toUpperCase();
         String reason = sp_reason.getSelectedItem().toString();
         String description = txt_description.getText().toString();
         int fine = Integer.parseInt(txt_fine.getText().toString());
+        boolean finePaid = fine_paid.isChecked();
         Date datetime = new Date();
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
@@ -194,10 +193,9 @@ public class NewReportFragment extends Fragment {
             datetime = new SimpleDateFormat("dd-MM-yy HH:mm:ss").parse(txt_reportDT.getText().toString());
         }
         catch(ParseException e) { }
-        return new Report(vehicleNo,licenseNo,reason,description,fine,datetime,photoUrl,uid);
+        return new Report(vehicleNo,licenseNo,reason,description,fine,finePaid,datetime,uid);
     }
 
-    //function to clear report form
     private void clearReport() {
         txt_vehicleNo.setText("");
         txt_licenseNo.setText("");
@@ -206,33 +204,27 @@ public class NewReportFragment extends Fragment {
         txt_reportDT.setText("");
         img_photo.setImageDrawable(null);
         sp_reason.setSelection(0);
+        fine_paid.setChecked(false);
 
         downloadUrl = "";
         filePath = null;
     }
 
-    //function to save report data in firebase
     private void saveData() {
         if (validate()) {
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-            StorageReference storageRef = storage.getReference();
-
             final ProgressDialog progressDialog = new ProgressDialog(getContext());
             progressDialog.setTitle("Saving report...");
             progressDialog.show();
 
-            StorageReference ref = storageRef.child("images/" + txt_vehicleNo.getText().toString() + "/" + UUID.randomUUID().toString());
+            final DatabaseReference reportsDatabase = FirebaseDatabase.getInstance().getReference("reports");
+            final String reportID = reportsDatabase.push().getKey();
+            reportsDatabase.child(reportID).setValue(getReport(reportID));
+
+            StorageReference ref = FirebaseStorage.getInstance().getReference().child("images/" + reportID);
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            downloadUrl = taskSnapshot.getDownloadUrl().toString();
-
-                            DatabaseReference reportsDatabase = FirebaseDatabase.getInstance().getReference("reports");
-                            String reportID = reportsDatabase.push().getKey();
-
-                            reportsDatabase.child(reportID).setValue(getReport(reportID,downloadUrl));
-
                             clearReport();
                             progressDialog.dismiss();
                             Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
@@ -241,6 +233,7 @@ public class NewReportFragment extends Fragment {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            reportsDatabase.child(reportID).removeValue();
                             progressDialog.dismiss();
                             Toast.makeText(getActivity(), "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -255,7 +248,6 @@ public class NewReportFragment extends Fragment {
         }
     }
 
-    //function to validate fields
     private boolean validate() {
 
         if(txt_vehicleNo.getText().toString().isEmpty()) {

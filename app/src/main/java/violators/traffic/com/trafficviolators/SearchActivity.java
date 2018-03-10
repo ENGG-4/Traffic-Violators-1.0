@@ -6,6 +6,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -19,6 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,6 +33,7 @@ public class SearchActivity extends AppCompatActivity {
     private List<ReportListItem> reportList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ReportAdapter reportAdapter;
+    private TextView emptyText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,7 @@ public class SearchActivity extends AppCompatActivity {
 
         final Spinner filter_option = (Spinner) findViewById(R.id.sp_filterOption);
         final EditText txt_searchValue = (EditText) findViewById(R.id.txt_searchValue);
+        emptyText = (TextView) findViewById(R.id.empty_view);
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_searchList);
         reportAdapter = new ReportAdapter(this,reportList);
@@ -54,6 +59,7 @@ public class SearchActivity extends AppCompatActivity {
                         searchIndex = "vehicleNo";
                     else
                         searchIndex = "licenseNo";
+
                     searchRecord(searchIndex,txt_searchValue.getText().toString());
                     return true;
                 }
@@ -64,20 +70,28 @@ public class SearchActivity extends AppCompatActivity {
 
     public void searchRecord(String searchIndex,String searchValue) {
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
-        Query query = databaseRef.child("reports").orderByChild(searchIndex).equalTo(searchValue);
+        Query query = databaseRef.child("reports").orderByChild(searchIndex).equalTo(searchValue.toUpperCase());
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 reportList.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String reportID = postSnapshot.getKey();
                     Report report = postSnapshot.getValue(Report.class);
                     String timeFormat = SimpleDateFormat.getTimeInstance(DateFormat.SHORT).format(report.getDatetime());
                     String dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Locale.FRENCH).format(report.getDatetime());
-                    ReportListItem item = new ReportListItem(report.getVehicleNo(),report.getReason(),"₹ " + String.valueOf(report.getFine()),dateFormat,timeFormat,getItemBackground(report.getReason()));
+                    ReportListItem item = new ReportListItem(reportID,report.getVehicleNo(),report.getReason(),"₹ " + String.valueOf(report.getFine()),dateFormat,timeFormat,getItemBackground(report.getReason()));
                     reportList.add(item);
                 }
-                recyclerView.setAdapter(reportAdapter);
+
+                if(reportList.isEmpty()) {
+                    recyclerView.setVisibility(View.GONE);
+                    emptyText.setVisibility(View.VISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    emptyText.setVisibility(View.GONE);
+                    recyclerView.setAdapter(reportAdapter);
+                }
             }
 
             @Override

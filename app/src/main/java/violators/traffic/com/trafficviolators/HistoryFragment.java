@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,6 +36,8 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
     private List<ReportListItem> reportList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ReportAdapter reportAdapter;
+    private TextView emptyText;
+
     public HistoryFragment() {}
 
     @Nullable
@@ -43,6 +46,7 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
         View view = inflater.inflate(R.layout.fragment_history,container,false);
         setHasOptionsMenu(true);
 
+        emptyText = (TextView) view.findViewById(R.id.empty_view);
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_report);
         reportAdapter = new ReportAdapter(this.getContext(),reportList);
         recyclerView.setHasFixedSize(true);
@@ -60,13 +64,22 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
             public void onDataChange(DataSnapshot dataSnapshot) {
                 reportList.clear();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    String reportID = postSnapshot.getKey();
                     Report report = postSnapshot.getValue(Report.class);
                     String timeFormat = SimpleDateFormat.getTimeInstance(DateFormat.SHORT).format(report.getDatetime());
                     String dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Locale.FRENCH).format(report.getDatetime());
-                    ReportListItem item = new ReportListItem(report.getVehicleNo(),report.getReason(),"₹ " + String.valueOf(report.getFine()),dateFormat,timeFormat,getItemBackground(report.getReason()));
+                    ReportListItem item = new ReportListItem(reportID,report.getVehicleNo(),report.getReason(),"₹ " + String.valueOf(report.getFine()),dateFormat,timeFormat,getItemBackground(report.getReason()));
                     reportList.add(item);
                 }
-                recyclerView.setAdapter(reportAdapter);
+
+                if(reportList.isEmpty()) {
+                    recyclerView.setVisibility(View.GONE);
+                    emptyText.setVisibility(View.VISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    emptyText.setVisibility(View.GONE);
+                    recyclerView.setAdapter(reportAdapter);
+                }
             }
 
             @Override
@@ -112,12 +125,14 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
 
         super.onCreateOptionsMenu(menu, inflater);
     }
+
     @Override
     public boolean onQueryTextChange(String searchText) {
         final List<ReportListItem> filteredList = filter(reportList, searchText);
         reportAdapter.setFilter(filteredList);
         return true;
     }
+
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;

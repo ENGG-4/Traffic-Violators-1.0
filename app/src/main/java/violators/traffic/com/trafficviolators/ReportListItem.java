@@ -2,6 +2,7 @@ package violators.traffic.com.trafficviolators;
 
 public class ReportListItem {
 
+    private String ReportID;
     private String VehicleNo;
     private String Reason;
     private String Fine;
@@ -9,13 +10,23 @@ public class ReportListItem {
     private String ReportTime;
     private int Photo;
 
-    public ReportListItem(String vehicleNo, String reason, String fine, String reportDate, String reportTime, int photo) {
+    public ReportListItem(String reportID, String vehicleNo, String reason, String fine, String reportDate, String reportTime, int photo) {
+        ReportID = reportID;
         VehicleNo = vehicleNo;
         Reason = reason;
         Fine = fine;
         ReportDate = reportDate;
         ReportTime = reportTime;
         Photo = photo;
+    }
+
+
+    public String getReportID() {
+        return ReportID;
+    }
+
+    public void setReportID(String reportID) {
+        ReportID = reportID;
     }
 
     public String getVehicleNo() {

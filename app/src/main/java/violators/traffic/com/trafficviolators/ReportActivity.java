@@ -14,7 +14,8 @@ public class ReportActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
-        initializeTabLayout();
+        Bundle bundle = getIntent().getExtras();
+        initializeTabLayout(bundle.getInt("select"));
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -26,7 +27,6 @@ public class ReportActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
             case R.id.action_saveReport:
                 return false;
             case R.id.action_searchReport:
@@ -34,11 +34,10 @@ public class ReportActivity extends AppCompatActivity {
             default:
                 break;
         }
-
         return false;
     }
 
-    public void initializeTabLayout() {
+    public void initializeTabLayout(int id) {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
 
@@ -47,6 +46,7 @@ public class ReportActivity extends AppCompatActivity {
         adapter.AddFragment(new HistoryFragment(),"History");
 
         viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(id);
         tabLayout.setupWithViewPager(viewPager);
     }
 }

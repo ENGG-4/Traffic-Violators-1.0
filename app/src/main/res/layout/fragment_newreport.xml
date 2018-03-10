@@ -45,6 +45,7 @@
                     android:paddingLeft="0dp"/>
 
                 <Switch
+                    android:id="@+id/switch_fine"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -128,7 +129,7 @@
                     android:id="@+id/txt_description"
                     style="@style/editTextReportStyle"
                     android:hint="@string/hint_description"
-                    android:drawableLeft="@drawable/ic_report"
+                    android:drawableLeft="@drawable/ic_description"
                     android:drawableTint="@color/colorPrimaryText"/>
 
             </android.support.design.widget.TextInputLayout>

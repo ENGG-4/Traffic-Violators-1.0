@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         initializeNavigationDrawer();
     }
 
@@ -46,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this ,ReportActivity.class));
+                startActivity(new Intent(MainActivity.this ,ReportActivity.class).putExtra("select",0));
             }
         });
 
@@ -102,10 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(MainActivity.this,SettingsActivity.class));
-        }
-        else if(id == R.id.action_search) {
+        if(id == R.id.action_search) {
             startActivity(new Intent(MainActivity.this,SearchActivity.class));
         }
 
@@ -117,14 +113,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_driver) {
-            startActivity(new Intent(MainActivity.this,DriverActivity.class));
+        if (id == R.id.nav_search) {
+            startActivity(new Intent(MainActivity.this,SearchActivity.class));
         } else if (id == R.id.nav_report) {
-            startActivity(new Intent(MainActivity.this,ReportActivity.class));
+            startActivity(new Intent(MainActivity.this,ReportActivity.class).putExtra("select",0));
+        } else if (id == R.id.nav_history) {
+            startActivity(new Intent(MainActivity.this,ReportActivity.class).putExtra("select",1));
         } else if (id == R.id.nav_pending) {
             startActivity(new Intent(MainActivity.this,PendingActivity.class));
-        } else if (id == R.id.nav_settings) {
-            startActivity(new Intent(MainActivity.this,SettingsActivity.class));
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(MainActivity.this,LoginActivity.class));
