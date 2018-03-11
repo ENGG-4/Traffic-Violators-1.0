@@ -29,8 +29,8 @@ import java.util.Locale;
 
 public class ViewReportActivity extends AppCompatActivity {
 
-    private TextView vehicleNo,licenseNo,reason,fine,description,date,time;
-    private ImageView photo,status;
+    private TextView vehicleNo,licenseNo,reason,fine,description,date,time,status;
+    private ImageView photo,statusIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,8 @@ public class ViewReportActivity extends AppCompatActivity {
         date = (TextView) findViewById(R.id.txt_dateValue);
         time = (TextView) findViewById(R.id.txt_timeValue);
         photo = (ImageView) findViewById(R.id.img_photo);
-        status = (ImageView) findViewById(R.id.status);
+        statusIndicator = (ImageView) findViewById(R.id.status);
+        status = (TextView) findViewById(R.id.txt_statusValue);
     }
 
     public void getReport() {
@@ -77,10 +78,14 @@ public class ViewReportActivity extends AppCompatActivity {
                 time.setText(SimpleDateFormat.getTimeInstance(DateFormat.SHORT).format(report.getDatetime()));
                 date.setText(SimpleDateFormat.getDateInstance(DateFormat.SHORT, Locale.FRENCH).format(report.getDatetime()));
 
-                if(report.isFinePaid())
-                    status.setBackgroundResource(R.drawable.circle_green);
-                else
-                    status.setBackgroundResource(R.drawable.circle_yellow);
+                if(report.isFinePaid()) {
+                    status.setText("Paid");
+                    statusIndicator.setBackgroundResource(R.drawable.circle_green);
+                }
+                else {
+                    status.setText("Pending");
+                    statusIndicator.setBackgroundResource(R.drawable.circle_yellow);
+                }
 
                 Glide.with(getApplicationContext()).using(new FirebaseImageLoader()).load(pathReference).into(photo);
                 progressDialog.dismiss();

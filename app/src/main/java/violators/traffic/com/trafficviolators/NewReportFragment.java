@@ -212,6 +212,7 @@ public class NewReportFragment extends Fragment {
 
     private void saveData() {
         if (validate()) {
+
             final ProgressDialog progressDialog = new ProgressDialog(getContext());
             progressDialog.setTitle("Saving report...");
             progressDialog.show();
@@ -220,31 +221,33 @@ public class NewReportFragment extends Fragment {
             final String reportID = reportsDatabase.push().getKey();
             reportsDatabase.child(reportID).setValue(getReport(reportID));
 
-            StorageReference ref = FirebaseStorage.getInstance().getReference().child("images/" + reportID);
-            ref.putFile(filePath)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            clearReport();
-                            progressDialog.dismiss();
-                            Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            reportsDatabase.child(reportID).removeValue();
-                            progressDialog.dismiss();
-                            Toast.makeText(getActivity(), "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                            progressDialog.setMessage("Uploaded " + (int) progress + "%");
-                        }
-                    });
+            if(filePath != null) {
+                StorageReference ref = FirebaseStorage.getInstance().getReference().child("images/" + reportID);
+                ref.putFile(filePath)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                clearReport();
+                                progressDialog.dismiss();
+                                Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                reportsDatabase.child(reportID).removeValue();
+                                progressDialog.dismiss();
+                                Toast.makeText(getActivity(), "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                                double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                                progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                            }
+                        });
+            }
         }
     }
 

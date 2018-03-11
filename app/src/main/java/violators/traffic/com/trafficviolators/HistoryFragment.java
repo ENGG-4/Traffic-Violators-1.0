@@ -50,7 +50,10 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_report);
         reportAdapter = new ReportAdapter(this.getContext(),reportList);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        LinearLayoutManager manager = new LinearLayoutManager(this.getContext());
+        manager.setReverseLayout(true);
+        manager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(manager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         setReportList();
         return view;

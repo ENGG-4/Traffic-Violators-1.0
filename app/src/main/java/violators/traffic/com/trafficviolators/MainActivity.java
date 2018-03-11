@@ -119,8 +119,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(MainActivity.this,ReportActivity.class).putExtra("select",0));
         } else if (id == R.id.nav_history) {
             startActivity(new Intent(MainActivity.this,ReportActivity.class).putExtra("select",1));
-        } else if (id == R.id.nav_pending) {
-            startActivity(new Intent(MainActivity.this,PendingActivity.class));
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(MainActivity.this,LoginActivity.class));
