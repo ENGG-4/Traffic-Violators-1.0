@@ -1,10 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="8dp"
-    android:background="@color/colorOffWhite">
+    android:background="@color/colorDivider">
+
+    <RadioGroup
+        android:id="@+id/radio_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:text="Filter by"
+            android:textSize="16sp"
+            android:drawableLeft="@drawable/ic_filter"
+            android:drawablePadding="5dp"/>
+
+        <RadioButton
+            android:id="@+id/rb_all"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="All"/>
+
+        <RadioButton
+            android:id="@+id/rb_pending"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:text="Pending"/>
+
+        <RadioButton
+            android:id="@+id/rb_completed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Completed"/>
+
+    </RadioGroup>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_report"
@@ -20,4 +60,4 @@
         android:textSize="20sp"
         android:text="No data found" />
 
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

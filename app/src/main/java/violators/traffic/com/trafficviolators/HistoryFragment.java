@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,17 +38,20 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
     private RecyclerView recyclerView;
     private ReportAdapter reportAdapter;
     private TextView emptyText;
+    private RadioGroup radioFilter;
 
     public HistoryFragment() {}
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_history,container,false);
+        final View view = inflater.inflate(R.layout.fragment_history,container,false);
         setHasOptionsMenu(true);
 
         emptyText = (TextView) view.findViewById(R.id.empty_view);
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_report);
+        radioFilter = (RadioGroup) view.findViewById(R.id.radio_filter);
+
         reportAdapter = new ReportAdapter(this.getContext(),reportList);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager manager = new LinearLayoutManager(this.getContext());
@@ -55,6 +59,19 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
         manager.setStackFromEnd(true);
         recyclerView.setLayoutManager(manager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        radioFilter.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == R.id.rb_all)
+                    reportAdapter.setFilter(reportList);
+                else if(checkedId == R.id.rb_pending)
+                    reportAdapter.setFilter(filterByStatus(reportList,false));
+                else if(checkedId == R.id.rb_completed)
+                    reportAdapter.setFilter(filterByStatus(reportList,true));
+            }
+        });
+
         setReportList();
         return view;
     }
@@ -71,7 +88,14 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
                     Report report = postSnapshot.getValue(Report.class);
                     String timeFormat = SimpleDateFormat.getTimeInstance(DateFormat.SHORT).format(report.getDatetime());
                     String dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Locale.FRENCH).format(report.getDatetime());
-                    ReportListItem item = new ReportListItem(reportID,report.getVehicleNo(),report.getReason(),"₹ " + String.valueOf(report.getFine()),dateFormat,timeFormat,getItemBackground(report.getReason()));
+                    ReportListItem item = new ReportListItem(reportID,
+                            report.getVehicleNo(),
+                            report.getReason(),
+                            "₹ " + String.valueOf(report.getFine()),
+                            report.isFinePaid(),
+                            dateFormat,
+                            timeFormat,
+                            getItemBackground(report.getReason()));
                     reportList.add(item);
                 }
 
@@ -128,24 +152,32 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
 
         super.onCreateOptionsMenu(menu, inflater);
     }
-
     @Override
     public boolean onQueryTextChange(String searchText) {
-        final List<ReportListItem> filteredList = filter(reportList, searchText);
+        final List<ReportListItem> filteredList = filterByVehicleNo(reportList, searchText);
         reportAdapter.setFilter(filteredList);
         return true;
     }
-
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
     }
 
-    private List<ReportListItem> filter(List<ReportListItem> reportList, String query) {
+    private List<ReportListItem> filterByVehicleNo(List<ReportListItem> reportList, String query) {
         query = query.toLowerCase();
         final List<ReportListItem> filteredList = new ArrayList<>();
         for (ReportListItem item : reportList) {
             if (item.getVehicleNo().toLowerCase().contains(query)) {
+                filteredList.add(item);
+            }
+        }
+        return filteredList;
+    }
+
+    private List<ReportListItem> filterByStatus(List<ReportListItem> reportList, boolean status) {
+        final List<ReportListItem> filteredList = new ArrayList<>();
+        for (ReportListItem item : reportList) {
+            if (item.isFinePaid() == status) {
                 filteredList.add(item);
             }
         }

@@ -9,8 +9,9 @@ public class ReportListItem {
     private String ReportDate;
     private String ReportTime;
     private int Photo;
+    private boolean finePaid;
 
-    public ReportListItem(String reportID, String vehicleNo, String reason, String fine, String reportDate, String reportTime, int photo) {
+    public ReportListItem(String reportID, String vehicleNo, String reason, String fine,boolean finePaid, String reportDate, String reportTime, int photo) {
         ReportID = reportID;
         VehicleNo = vehicleNo;
         Reason = reason;
@@ -18,8 +19,8 @@ public class ReportListItem {
         ReportDate = reportDate;
         ReportTime = reportTime;
         Photo = photo;
+        this.finePaid = finePaid;
     }
-
 
     public String getReportID() {
         return ReportID;
@@ -51,6 +52,14 @@ public class ReportListItem {
 
     public void setFine(String fine) {
         Fine = fine;
+    }
+
+    public boolean isFinePaid() {
+        return finePaid;
+    }
+
+    public void setFinePaid(boolean finePaid) {
+        finePaid = finePaid;
     }
 
     public String getReportDate() {

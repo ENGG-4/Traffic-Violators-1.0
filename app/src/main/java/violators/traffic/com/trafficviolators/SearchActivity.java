@@ -9,10 +9,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,7 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -34,12 +33,14 @@ public class SearchActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ReportAdapter reportAdapter;
     private TextView emptyText;
+    private RadioGroup radioFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        radioFilter = (RadioGroup) findViewById(R.id.radio_filter);
         final Spinner filter_option = (Spinner) findViewById(R.id.sp_filterOption);
         final EditText txt_searchValue = (EditText) findViewById(R.id.txt_searchValue);
         emptyText = (TextView) findViewById(R.id.empty_view);
@@ -66,6 +67,18 @@ public class SearchActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        radioFilter.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == R.id.rb_all)
+                    reportAdapter.setFilter(reportList);
+                else if(checkedId == R.id.rb_pending)
+                    reportAdapter.setFilter(filterByStatus(reportList,false));
+                else if(checkedId == R.id.rb_completed)
+                    reportAdapter.setFilter(filterByStatus(reportList,true));
+            }
+        });
     }
 
     public void searchRecord(String searchIndex,String searchValue) {
@@ -80,7 +93,14 @@ public class SearchActivity extends AppCompatActivity {
                     Report report = postSnapshot.getValue(Report.class);
                     String timeFormat = SimpleDateFormat.getTimeInstance(DateFormat.SHORT).format(report.getDatetime());
                     String dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Locale.FRENCH).format(report.getDatetime());
-                    ReportListItem item = new ReportListItem(reportID,report.getVehicleNo(),report.getReason(),"₹ " + String.valueOf(report.getFine()),dateFormat,timeFormat,getItemBackground(report.getReason()));
+                    ReportListItem item = new ReportListItem(reportID,
+                            report.getVehicleNo(),
+                            report.getReason(),
+                            "₹ " + String.valueOf(report.getFine()),
+                            report.isFinePaid(),
+                            dateFormat,
+                            timeFormat,
+                            getItemBackground(report.getReason()));
                     reportList.add(item);
                 }
 
@@ -112,5 +132,15 @@ public class SearchActivity extends AppCompatActivity {
             return R.drawable.ic_signal;
         else
             return R.drawable.ic_default;
+    }
+
+    private List<ReportListItem> filterByStatus(List<ReportListItem> reportList, boolean status) {
+        final List<ReportListItem> filteredList = new ArrayList<>();
+        for (ReportListItem item : reportList) {
+            if (item.isFinePaid() == status) {
+                filteredList.add(item);
+            }
+        }
+        return filteredList;
     }
 }
