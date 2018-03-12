@@ -47,6 +47,13 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_history,container,false);
         setHasOptionsMenu(true);
+        initialize(view);
+        setReportList();
+        return view;
+    }
+
+    public void initialize(View view) {
+
 
         emptyText = (TextView) view.findViewById(R.id.empty_view);
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_report);
@@ -71,9 +78,6 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
                     reportAdapter.setFilter(filterByStatus(reportList,true));
             }
         });
-
-        setReportList();
-        return view;
     }
 
     public void setReportList() {

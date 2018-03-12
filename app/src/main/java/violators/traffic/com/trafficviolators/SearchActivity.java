@@ -1,10 +1,12 @@
 package violators.traffic.com.trafficviolators;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -40,16 +42,26 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        radioFilter = (RadioGroup) findViewById(R.id.radio_filter);
-        final Spinner filter_option = (Spinner) findViewById(R.id.sp_filterOption);
-        final EditText txt_searchValue = (EditText) findViewById(R.id.txt_searchValue);
-        emptyText = (TextView) findViewById(R.id.empty_view);
-
         recyclerView = (RecyclerView) findViewById(R.id.rv_searchList);
         reportAdapter = new ReportAdapter(this,reportList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        initialize();
+    }
+
+    public void initialize() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        final ActionBar ab = getSupportActionBar();
+        ab.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+        ab.setDisplayHomeAsUpEnabled(true);
+
+        radioFilter = (RadioGroup) findViewById(R.id.radio_filter);
+        final Spinner filter_option = (Spinner) findViewById(R.id.sp_filterOption);
+        final EditText txt_searchValue = (EditText) findViewById(R.id.txt_searchValue);
+        emptyText = (TextView) findViewById(R.id.empty_view);
 
         txt_searchValue.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -88,6 +100,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 reportList.clear();
+                radioFilter.clearCheck();
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     String reportID = postSnapshot.getKey();
                     Report report = postSnapshot.getValue(Report.class);
@@ -111,6 +124,7 @@ public class SearchActivity extends AppCompatActivity {
                     recyclerView.setVisibility(View.VISIBLE);
                     emptyText.setVisibility(View.GONE);
                     recyclerView.setAdapter(reportAdapter);
+                    radioFilter.check(R.id.rb_all);
                 }
             }
 

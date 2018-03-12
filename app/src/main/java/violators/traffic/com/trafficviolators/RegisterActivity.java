@@ -29,8 +29,7 @@ import java.util.Locale;
 public class RegisterActivity extends AppCompatActivity{
 
     private EditText inputEmail, inputPassword,inputFullName,inputDOB;
-    private Button btnLogin;
-    private FloatingActionButton btnRegister;
+    private Button btnLogin,btnRegister;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
     Calendar myCalendar;
@@ -44,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity{
         auth = FirebaseAuth.getInstance();
 
         btnLogin = (Button) findViewById(R.id.btn_login);
-        btnRegister = (FloatingActionButton) findViewById(R.id.btn_register);
+        btnRegister = (Button) findViewById(R.id.btn_register);
         inputFullName = (EditText) findViewById(R.id.txt_fullname);
         inputDOB = (EditText) findViewById(R.id.txt_dob);
         inputEmail = (EditText) findViewById(R.id.txt_email);

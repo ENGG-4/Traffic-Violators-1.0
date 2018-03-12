@@ -26,12 +26,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".ResetPasswordActivity"
             android:label=""
@@ -40,17 +38,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".LoginActivity" />
         </activity>
-
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".ReportActivity"
             android:label="@string/title_activity_report"
@@ -59,15 +54,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".SearchActivity"
-            android:label="@string/title_activity_search">
+            android:label="@string/title_activity_search"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".ViewReportActivity"
             android:label=""
@@ -76,9 +70,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ReportActivity" />
         </activity>
-
         <activity
-            android:name=".AlertActivity"
+            android:name=".NewAlertActivity"
             android:label="@string/title_activity_alert"
             android:launchMode="singleTop">
             <meta-data

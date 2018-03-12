@@ -3,11 +3,13 @@ package violators.traffic.com.trafficviolators;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class AlertActivity extends AppCompatActivity {
+public class NewAlertActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alert);
+        setContentView(R.layout.activity_newalert);
     }
 }
+
+
