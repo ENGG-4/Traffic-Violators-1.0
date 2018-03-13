@@ -111,9 +111,11 @@
                         android:id="@+id/txt_reportDT"
                         style="@style/editTextReportStyle"
                         android:clickable="true"
-                        android:focusable="true"
-                        android:inputType="datetime"
+                        android:focusable="false"
                         android:hint="@string/hint_datetime"
+                        android:inputType="datetime"
+                        android:longClickable="false"
+                        android:focusableInTouchMode="false"
                         android:drawableLeft="@drawable/ic_date"/>
 
                 </android.support.design.widget.TextInputLayout>

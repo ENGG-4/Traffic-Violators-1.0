@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,6 +7,147 @@
     android:layout_height="match_parent"
     tools:context="violators.traffic.com.trafficviolators.NewAlertActivity">
 
+    <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:background="@color/colorWhite">
 
+        <ImageView
+            android:id="@+id/img_photo"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginBottom="16dp"
+            android:scaleType="centerCrop"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@color/colorOffWhite"/>
 
-</android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:id="@+id/layout_form"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_photo"
+            android:layout_marginTop="16dp"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <Spinner
+                    android:id="@+id/sp_reason"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:spinnerMode="dialog"
+                    android:entries="@array/reason_array"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"/>
+
+                <Switch
+                    android:id="@+id/switch_fine"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Fine paid"
+                    android:gravity="center|center_vertical"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorPrimaryText"/>
+
+            </LinearLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <EditText
+                    android:id="@+id/txt_vehicleNo"
+                    style="@style/editTextReportStyle"
+                    android:hint="@string/hint_vehicleno"
+                    android:drawableLeft="@drawable/ic_vehicle"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <EditText
+                    android:id="@+id/txt_driverLicense"
+                    style="@style/editTextReportStyle"
+                    android:hint="@string/hint_licenseno"
+                    android:drawableLeft="@drawable/ic_license"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:baselineAligned="false"
+                android:layout_marginBottom="8dp">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <EditText
+                        android:id="@+id/txt_fine"
+                        style="@style/editTextReportStyle"
+                        android:hint="@string/hint_fine"
+                        android:inputType="number"
+                        android:drawableLeft="@drawable/ic_fine"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <EditText
+                        android:id="@+id/txt_reportDT"
+                        style="@style/editTextReportStyle"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:inputType="datetime"
+                        android:hint="@string/hint_datetime"
+                        android:drawableLeft="@drawable/ic_date"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <EditText
+                    android:id="@+id/txt_description"
+                    style="@style/editTextReportStyle"
+                    android:hint="@string/hint_description"
+                    android:drawableLeft="@drawable/ic_description_default"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_vehiclephoto"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@id/img_photo"
+            android:layout_marginBottom="-24dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_photo"/>
+
+    </RelativeLayout>
+
+</ScrollView>

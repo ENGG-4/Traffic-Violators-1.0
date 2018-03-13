@@ -2,6 +2,7 @@ package violators.traffic.com.trafficviolators;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -215,6 +216,7 @@ public class NewReportFragment extends Fragment {
 
             final ProgressDialog progressDialog = new ProgressDialog(getContext());
             progressDialog.setTitle("Saving report...");
+            progressDialog.setCancelable(false);
             progressDialog.show();
 
             final DatabaseReference reportsDatabase = FirebaseDatabase.getInstance().getReference("reports");

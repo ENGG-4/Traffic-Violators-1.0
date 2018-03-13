@@ -17,26 +17,26 @@
         android:fitsSystemWindows="true"
         android:elevation="8dp">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:titleTextColor="@color/colorWhite"/>
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:src="@drawable/logo"/>
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Traffic Violators"
-            android:textStyle="bold"
-            android:textColor="@color/colorWhite"
-            android:textSize="24sp"
-            android:gravity="center"/>
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/logo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Traffic Violators"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite"
+                android:textSize="24sp"/>
+
+        </LinearLayout>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -69,9 +69,9 @@
         <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:background="@color/colorAccent"
             android:text="Login"
             android:textSize="16sp"
@@ -116,7 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="NOT A MEMBER ?"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:textAlignment="center"/>
@@ -139,7 +139,7 @@
         android:textColor="@color/colorPrimaryText"
         android:textSize="16sp"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         style="@style/Widget.AppCompat.Button.Borderless.Colored" />

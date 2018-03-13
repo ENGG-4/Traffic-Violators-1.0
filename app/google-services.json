@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "523255386290-s7srjdft16ok3tstcfbdhrifgr34lnvi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "violators.traffic.com.trafficviolators",
+            "certificate_hash": "90293c3525bd8bb127d694289b7a611ddd9ae9bc"
+          }
+        },
+        {
           "client_id": "523255386290-ao2sn3b5usiqg6dsl3s8u7olb448khn5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
