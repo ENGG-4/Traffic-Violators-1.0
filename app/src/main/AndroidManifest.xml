@@ -73,8 +73,15 @@
         </activity>
         <activity
             android:name=".NewAlertActivity"
-            android:label="@string/title_activity_alert"
+            android:label="@string/title_activity_new_alert"
             android:launchMode="singleTop">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".ViewAlertActivity"
+            android:label="@string/title_activity_view_alert">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />

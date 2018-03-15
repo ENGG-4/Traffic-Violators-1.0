@@ -49,8 +49,7 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
         holder.listItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String reportID = reportItem.getReportID();
-                context.startActivity(new Intent(context,ViewReportActivity.class).putExtra("reportID",reportID));
+                context.startActivity(new Intent(context,ViewReportActivity.class).putExtra("reportID",reportItem.getReportID()));
             }
         });
     }

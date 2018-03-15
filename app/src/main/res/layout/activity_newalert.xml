@@ -109,7 +109,8 @@
                     android:layout_alignBaseline="@id/txt_infoTitle"
                     android:layout_marginLeft="-5dp"
                     android:layout_toEndOf="@id/space2"
-                    android:entries="@array/type_array" />
+                    android:entries="@array/type_array"
+                    android:spinnerMode="dialog"/>
 
 
                 <EditText

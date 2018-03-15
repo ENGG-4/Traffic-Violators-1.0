@@ -205,7 +205,6 @@ public class NewAlertActivity extends AppCompatActivity {
 
     private void clearAll() {
         txt_vehicleNo.setText("");
-        txt_alertDate.setText("");
         txt_description.setText("");
         txt_vehicleModel.setText("");
         txt_vehicleColor.setText("");
@@ -234,6 +233,8 @@ public class NewAlertActivity extends AppCompatActivity {
                                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                     @Override
                                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        clearAll();
+                                        progressDialog.dismiss();
                                         Toast.makeText(NewAlertActivity.this, "Alert started", Toast.LENGTH_SHORT).show();
                                     }
                                 })
@@ -241,6 +242,8 @@ public class NewAlertActivity extends AppCompatActivity {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         alertsDatabase.child(alertID).removeValue();
+                                        clearAll();
+                                        progressDialog.dismiss();
                                         Toast.makeText(NewAlertActivity.this, "Failed to start alert", Toast.LENGTH_SHORT).show();
                                     }
                                 })
@@ -258,8 +261,10 @@ public class NewAlertActivity extends AppCompatActivity {
 
                 @Override
                 public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-                    clearAll();
-                    progressDialog.dismiss();
+                    if(filePath == null) {
+                        clearAll();
+                        progressDialog.dismiss();
+                    }
                 }
             });
 

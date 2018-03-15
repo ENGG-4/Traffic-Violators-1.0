@@ -38,7 +38,8 @@
     <string name="title_activity_pending">Pending</string>
     <string name="title_activity_profile">Profile</string>
     <string name="title_activity_search">Search</string>
-    <string name="title_activity_alert">Alert</string>
+    <string name="title_activity_new_alert">New Alert</string>
+    <string name="title_activity_view_alert">View Alert</string>
     <string name="title_activity_reset_password">Reset Password</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -75,9 +76,13 @@
     </string-array>
 
     <string-array name="type_array">
-        <item>Two Wheeler</item>
-        <item>Three Wheeler</item>
-        <item>Four Wheeler</item>
-        <item>More than four</item>
+        <item>Scooter</item>
+        <item>Bike</item>
+        <item>Car</item>
+        <item>Van</item>
+        <item>Bus</item>
+        <item>Truck</item>
+        <item>Auto Rickshaw</item>
+        <item>Other</item>
     </string-array>
 </resources>

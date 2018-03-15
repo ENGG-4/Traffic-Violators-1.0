@@ -197,7 +197,6 @@ public class NewReportFragment extends Fragment {
         txt_licenseNo.setText("");
         txt_description.setText("");
         txt_fine.setText("");
-        txt_reportDT.setText("");
         img_photo.setImageDrawable(null);
         sp_reason.setSelection(0);
         fine_paid.setChecked(false);
@@ -224,6 +223,8 @@ public class NewReportFragment extends Fragment {
                                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                     @Override
                                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        clearReport();
+                                        progressDialog.dismiss();
                                         Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
                                     }
                                 })
@@ -231,6 +232,8 @@ public class NewReportFragment extends Fragment {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         reportsDatabase.child(reportID).removeValue();
+                                        clearReport();
+                                        progressDialog.dismiss();
                                         Toast.makeText(getActivity(), "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                                 })
@@ -247,8 +250,10 @@ public class NewReportFragment extends Fragment {
 
                 @Override
                 public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-                    clearReport();
-                    progressDialog.dismiss();
+                    if(filePath == null) {
+                        clearReport();
+                        progressDialog.dismiss();
+                    }
                 }
             });
 

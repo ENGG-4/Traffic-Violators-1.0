@@ -13,4 +13,5 @@
     <color name="colorOffWhite">#EEEEEE</color>
     <color name="colorBlack">#000000</color>
     <color name="colorRed">#f44336</color>
+    <color name="colorYellow">#FDD835</color>
 </resources>
