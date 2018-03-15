@@ -2,7 +2,6 @@ package violators.traffic.com.trafficviolators;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -32,8 +31,12 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -43,8 +46,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
-import java.util.UUID;
 
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -59,9 +60,7 @@ public class NewReportFragment extends Fragment {
     private FloatingActionButton btn_addPhoto;
     private ImageView img_photo;
 
-    Calendar myCalendar;
     Uri filePath;
-    String downloadUrl;
 
     private static final int SELECTED_PIC = 1;
     private String[] galleryPermissions = {android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -73,25 +72,22 @@ public class NewReportFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_newreport, container, false);
         setHasOptionsMenu(true);
-
         initialize(view);
-
-        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateDateTime();
-            }
-        };
 
         txt_reportDT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(getActivity(), date, myCalendar.get(Calendar.YEAR),
-                        myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR);
+                int mMonth = c.get(Calendar.MONTH);
+                int mDay = c.get(Calendar.DAY_OF_MONTH);
+
+                new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        txt_reportDT.setText(dayOfMonth + "-" + (month+1) + "-" + year);
+                    }
+                },mYear,mMonth,mDay).show();
             }
         });
 
@@ -114,9 +110,8 @@ public class NewReportFragment extends Fragment {
         return view;
     }
 
-    public void initialize(View view) {
+    private void initialize(View view) {
         img_photo = (ImageView) view.findViewById(R.id.img_photo);
-        myCalendar = Calendar.getInstance();
         sp_reason = (Spinner) view.findViewById(R.id.sp_reason);
         txt_reportDT = (EditText) view.findViewById(R.id.txt_reportDT);
         txt_vehicleNo = (EditText) view.findViewById(R.id.txt_vehicleNo);
@@ -125,12 +120,12 @@ public class NewReportFragment extends Fragment {
         txt_fine = (EditText) view.findViewById(R.id.txt_fine);
         btn_addPhoto = (FloatingActionButton) view.findViewById(R.id.btn_vehiclephoto);
         fine_paid = (Switch) view.findViewById(R.id.switch_fine);
-    }
 
-    private void updateDateTime() {
-        String myFormat = "dd-MM-yy";
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.getDefault());
-        txt_reportDT.setText(sdf.format(myCalendar.getTime()));
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
+        txt_reportDT.setText(day + "-" + (month+1) + "-" + year);
     }
 
     @Override
@@ -180,7 +175,7 @@ public class NewReportFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private Report getReport(String reportID) {
+    private Report getReport() {
         String vehicleNo = txt_vehicleNo.getText().toString().toUpperCase();
         String licenseNo = txt_licenseNo.getText().toString().toUpperCase();
         String reason = sp_reason.getSelectedItem().toString();
@@ -206,50 +201,59 @@ public class NewReportFragment extends Fragment {
         img_photo.setImageDrawable(null);
         sp_reason.setSelection(0);
         fine_paid.setChecked(false);
-
-        downloadUrl = "";
         filePath = null;
     }
 
     private void saveData() {
         if (validate()) {
-
             final ProgressDialog progressDialog = new ProgressDialog(getContext());
             progressDialog.setTitle("Saving report...");
             progressDialog.setCancelable(false);
             progressDialog.show();
 
             final DatabaseReference reportsDatabase = FirebaseDatabase.getInstance().getReference("reports");
-            final String reportID = reportsDatabase.push().getKey();
-            reportsDatabase.child(reportID).setValue(getReport(reportID));
+            reportsDatabase.runTransaction(new Transaction.Handler() {
+                @Override
+                public Transaction.Result doTransaction(MutableData mutableData) {
+                    final String reportID = reportsDatabase.push().getKey();
+                    reportsDatabase.child(reportID).setValue(getReport());
 
-            if(filePath != null) {
-                StorageReference ref = FirebaseStorage.getInstance().getReference().child("images/" + reportID);
-                ref.putFile(filePath)
-                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                clearReport();
-                                progressDialog.dismiss();
-                                Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                reportsDatabase.child(reportID).removeValue();
-                                progressDialog.dismiss();
-                                Toast.makeText(getActivity(), "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                                double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                                progressDialog.setMessage("Uploaded " + (int) progress + "%");
-                            }
-                        });
-            }
+                    if(filePath != null) {
+                        StorageReference ref = FirebaseStorage.getInstance().getReference().child("images/reports/" + reportID);
+                        ref.putFile(filePath)
+                                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        reportsDatabase.child(reportID).removeValue();
+                                        Toast.makeText(getActivity(), "Failed " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                                        double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
+                                        progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                                    }
+                                });
+                    }
+                    return Transaction.success(mutableData);
+                }
+
+                @Override
+                public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
+                    clearReport();
+                    progressDialog.dismiss();
+                }
+            });
+
+
+
         }
     }
 

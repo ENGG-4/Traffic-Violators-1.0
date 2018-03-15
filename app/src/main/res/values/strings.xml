@@ -73,6 +73,11 @@
         <item>Vehicle</item>
         <item>License</item>
     </string-array>
-    <string name="title_activity_main2">Main2Activity</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+
+    <string-array name="type_array">
+        <item>Two Wheeler</item>
+        <item>Three Wheeler</item>
+        <item>Four Wheeler</item>
+        <item>More than four</item>
+    </string-array>
 </resources>

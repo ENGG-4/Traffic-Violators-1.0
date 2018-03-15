@@ -129,15 +129,16 @@ public class RegisterActivity extends AppCompatActivity{
                                         Toast.makeText(RegisterActivity.this, "Registration failed",Toast.LENGTH_SHORT).show();
                                     }
                                 } else {
-                                    Toast.makeText(RegisterActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
+
                                     FirebaseUser userProfile = FirebaseAuth.getInstance().getCurrentUser();
                                     if (userProfile != null) {
                                         String uid = userProfile.getUid();
                                         User user = new User(inputFullName.getText().toString(),inputDOB.getText().toString());
                                         DatabaseReference userDatabase = FirebaseDatabase.getInstance().getReference("users");
                                         userDatabase.child(uid).setValue(user);
+                                        Toast.makeText(RegisterActivity.this, "Verification email sent to "+userProfile.getEmail(), Toast.LENGTH_LONG).show();
+                                        finish();
                                     }
-                                    startActivity(new Intent(RegisterActivity.this, MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
                                 }
                             }
                         });

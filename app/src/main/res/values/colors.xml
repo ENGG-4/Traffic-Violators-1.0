@@ -6,7 +6,7 @@
     <color name="colorAccent">#4CAF50</color>
     <color name="colorPrimaryText">#555555</color>
     <color name="colorSecondaryText">#999999</color>
-    <color name="colorHint">#BDBDBD</color>
+    <color name="colorHint">#a8a8a8</color>
     <color name="colorDivider">#F6F6F6</color>
 
     <color name="colorWhite">#FFFFFF</color>

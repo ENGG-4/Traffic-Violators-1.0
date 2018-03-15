@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="violators.traffic.com.trafficviolators.NewAlertActivity">
 
     <RelativeLayout
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/colorWhite">
 
         <ImageView
@@ -18,123 +17,167 @@
             android:layout_height="220dp"
             android:layout_marginBottom="16dp"
             android:scaleType="centerCrop"
-            android:clickable="true"
-            android:focusable="true"
             android:background="@color/colorOffWhite"/>
 
         <LinearLayout
-            android:id="@+id/layout_form"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@id/img_photo"
-            android:layout_marginTop="16dp"
-            android:padding="16dp">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
+                android:padding="24dp">
 
-                <Spinner
-                    android:id="@+id/sp_reason"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:spinnerMode="dialog"
-                    android:entries="@array/reason_array"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"/>
-
-                <Switch
-                    android:id="@+id/switch_fine"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="Fine paid"
-                    android:gravity="center|center_vertical"
+                <TextView
+                    android:id="@+id/txt_overviewTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/txt_view_img1"
+                    android:text="Overview     "
+                    android:textColor="@color/colorPrimary"
                     android:textSize="16sp"
-                    android:textColor="@color/colorPrimaryText"/>
+                    android:textStyle="bold" />
 
-            </LinearLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
+                <android.support.v4.widget.Space
+                    android:id="@+id/space"
+                    android:layout_width="5dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_toEndOf="@id/txt_overviewTitle" />
 
                 <EditText
                     android:id="@+id/txt_vehicleNo"
-                    style="@style/editTextReportStyle"
-                    android:hint="@string/hint_vehicleno"
-                    android:drawableLeft="@drawable/ic_vehicle"/>
+                    style="@style/editTextAlertStyle"
+                    android:layout_alignBaseline="@id/txt_overviewTitle"
+                    android:layout_toEndOf="@id/space"
+                    android:drawableRight="@drawable/ic_license"
+                    android:hint="Vehicle no." />
 
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/txt_driverLicense"
-                    style="@style/editTextReportStyle"
-                    android:hint="@string/hint_licenseno"
-                    android:drawableLeft="@drawable/ic_license"/>
+                    android:id="@+id/txt_date"
+                    style="@style/editTextAlertStyle"
+                    android:layout_below="@id/txt_vehicleNo"
+                    android:layout_marginTop="12dp"
+                    android:layout_toEndOf="@id/space"
+                    android:clickable="true"
+                    android:drawableRight="@drawable/ic_date"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="Date"
+                    android:inputType="date"
+                    android:longClickable="false" />
 
-            </android.support.design.widget.TextInputLayout>
 
-            <LinearLayout
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDivider" />
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:baselineAligned="false"
-                android:layout_marginBottom="8dp">
+                android:padding="24dp">
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/txt_infoTitle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_toEndOf="@id/txt_view_img2"
+                    android:text="Vehicle        "
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/txt_fine"
-                        style="@style/editTextReportStyle"
-                        android:hint="@string/hint_fine"
-                        android:inputType="number"
-                        android:drawableLeft="@drawable/ic_fine"/>
+                <android.support.v4.widget.Space
+                    android:id="@+id/space2"
+                    android:layout_width="5dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_toEndOf="@id/txt_infoTitle" />
 
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="0dp"
+                <Spinner
+                    android:id="@+id/sp_vehicleType"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_alignBaseline="@id/txt_infoTitle"
+                    android:layout_marginLeft="-5dp"
+                    android:layout_toEndOf="@id/space2"
+                    android:entries="@array/type_array" />
 
-                    <EditText
-                        android:id="@+id/txt_reportDT"
-                        style="@style/editTextReportStyle"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:inputType="datetime"
-                        android:hint="@string/hint_datetime"
-                        android:drawableLeft="@drawable/ic_date"/>
-
-                </android.support.design.widget.TextInputLayout>
-
-            </LinearLayout>
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
 
                 <EditText
-                    android:id="@+id/txt_description"
-                    style="@style/editTextReportStyle"
-                    android:hint="@string/hint_description"
-                    android:drawableLeft="@drawable/ic_description_default"/>
+                    android:id="@+id/txt_vehicleModel"
+                    style="@style/editTextAlertStyle"
+                    android:layout_below="@id/sp_vehicleType"
+                    android:layout_marginTop="12dp"
+                    android:layout_toEndOf="@id/space2"
+                    android:drawableRight="@drawable/ic_vehicle"
+                    android:hint="Vehicle model" />
 
-            </android.support.design.widget.TextInputLayout>
+                <EditText
+                    android:id="@+id/txt_vehicleColor"
+                    style="@style/editTextAlertStyle"
+                    android:layout_below="@+id/txt_vehicleModel"
+                    android:layout_marginTop="12dp"
+                    android:layout_toEndOf="@id/space2"
+                    android:drawableRight="@drawable/ic_color"
+                    android:hint="Vehicle color" />
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDivider" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="24dp">
+
+                <TextView
+                    android:id="@+id/txt_descriptionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/txt_view_img1"
+                    android:text="Description"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <android.support.v4.widget.Space
+                    android:id="@+id/space4"
+                    android:layout_width="5dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_toEndOf="@id/txt_descriptionTitle" />
+
+                <EditText
+                    android:id="@+id/txt_descriptionValue"
+                    style="@style/editTextAlertStyle"
+                    android:layout_alignBaseline="@id/txt_descriptionTitle"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/space4"
+                    android:drawableRight="@drawable/ic_description_default"
+                    android:hint="Alert description" />
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorDivider" />
 
         </LinearLayout>
 
