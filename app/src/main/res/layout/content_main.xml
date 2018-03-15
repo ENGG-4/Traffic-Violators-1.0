@@ -70,7 +70,6 @@
                                 android:id="@+id/txt_totalReports"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="50"
                                 android:textSize="20sp"
                                 android:textColor="@color/colorPrimary"
                                 android:textAlignment="center"/>
@@ -96,7 +95,6 @@
                                 android:id="@+id/txt_totalPending"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="10"
                                 android:textSize="20sp"
                                 android:textColor="@color/colorYellow"
                                 android:textAlignment="center"/>
@@ -122,7 +120,6 @@
                                 android:id="@+id/txt_totalCompleted"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="40"
                                 android:textSize="20sp"
                                 android:textColor="@color/colorAccent"
                                 android:textAlignment="center"/>

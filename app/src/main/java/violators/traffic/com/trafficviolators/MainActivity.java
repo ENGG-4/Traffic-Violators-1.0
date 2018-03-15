@@ -43,12 +43,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private List<AlertListItem> alertList = new ArrayList<>();
     private RecyclerView recyclerView;
     private AlertAdapter alertAdapter;
-    private TextView displayName;
+    private TextView displayName,txt_Total,txt_Pending,txt_Completed;
+    int countTotalReport = 0,countPendingReport = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        txt_Total = (TextView) findViewById(R.id.txt_totalReports);
+        txt_Pending = (TextView) findViewById(R.id.txt_totalPending);
+        txt_Completed = (TextView) findViewById(R.id.txt_totalCompleted);
 
         FloatingActionButton fab_report = (FloatingActionButton) findViewById(R.id.fab_report);
         fab_report.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         initializeNavigationDrawer();
         initializeList();
+        getStatistics();
         setAlertList();
     }
 
@@ -199,6 +205,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
 
                 recyclerView.setAdapter(alertAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getStatistics() {
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
+        Query query = databaseRef.child("reports").orderByChild("userID").equalTo(FirebaseAuth.getInstance().getUid());
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    Report report = postSnapshot.getValue(Report.class);
+                    if(!report.isFinePaid())
+                        countPendingReport++;
+
+                    countTotalReport++;
+                }
+
+                txt_Total.setText(String.valueOf(countTotalReport));
+                txt_Pending.setText(String.valueOf(countPendingReport));
+                txt_Completed.setText(String.valueOf(countTotalReport - countPendingReport));
             }
 
             @Override
