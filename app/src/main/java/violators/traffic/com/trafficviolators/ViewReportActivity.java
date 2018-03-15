@@ -58,7 +58,7 @@ public class ViewReportActivity extends AppCompatActivity {
         String reportID = bundle.getString("reportID");
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Getting report");
+        progressDialog.setTitle("Getting Report");
         progressDialog.setMessage("Retrieving details...");
         progressDialog.show();
 

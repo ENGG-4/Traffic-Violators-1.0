@@ -215,7 +215,7 @@
                     android:id="@+id/txt_dateValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/txt_timeValue"
+                    android:layout_below="@+id/txt_dateTitle"
                     android:layout_toEndOf="@+id/txt_view_img3"
                     android:textSize="18sp"
                     android:textAppearance="@android:style/TextAppearance.Material.Large" />

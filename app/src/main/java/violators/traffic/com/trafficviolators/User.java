@@ -5,7 +5,10 @@ public class User {
     private String Name;
     private String DOB;
 
-    public User(String Name,String DOB) {
+    public User() {
+    }
+
+    public User(String Name, String DOB) {
         this.Name = Name;
         this.DOB = DOB;
     }
