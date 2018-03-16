@@ -3,7 +3,6 @@ package violators.traffic.com.trafficviolators;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,12 +14,9 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,11 +28,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -95,8 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user != null) {
-            final FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference ref = database.getReference().child("users").child(user.getUid()).child("name");
+            DatabaseReference ref =  FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).child("name");
 
             ref.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -165,6 +157,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(MainActivity.this,ReportActivity.class).putExtra("select",0));
         } else if (id == R.id.nav_history) {
             startActivity(new Intent(MainActivity.this,ReportActivity.class).putExtra("select",1));
+        } else if (id == R.id.nav_alert) {
+            startActivity(new Intent(MainActivity.this,AlertActivity.class));
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(MainActivity.this,LoginActivity.class));
@@ -188,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void setAlertList() {
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
-        Query query = databaseRef.child("alerts");
+        Query query = databaseRef.child("alerts").orderByChild("closeUID").equalTo("");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -203,7 +197,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             getItemBackground(alert.getVehicleType()));
                     alertList.add(item);
                 }
-
                 recyclerView.setAdapter(alertAdapter);
             }
 
@@ -222,12 +215,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Report report = postSnapshot.getValue(Report.class);
-                    if(!report.isFinePaid())
+                    if(report.isFinePaid())
                         countPendingReport++;
 
                     countTotalReport++;
                 }
-
                 txt_Total.setText(String.valueOf(countTotalReport));
                 txt_Pending.setText(String.valueOf(countPendingReport));
                 txt_Completed.setText(String.valueOf(countTotalReport - countPendingReport));

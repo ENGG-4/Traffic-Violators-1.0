@@ -1,19 +1,17 @@
 package violators.traffic.com.trafficviolators;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +28,8 @@ import java.util.Locale;
 public class ViewReportActivity extends AppCompatActivity {
 
     private TextView vehicleNo,licenseNo,reason,fine,description,date,time,status;
-    private ImageView photo,statusIndicator;
+    private ImageView photo;
+    FloatingActionButton statusIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +37,13 @@ public class ViewReportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_report);
         initialize();
         getReport();
+
+        statusIndicator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateStatus();
+            }
+        });
     }
 
     public void initialize() {
@@ -49,7 +55,7 @@ public class ViewReportActivity extends AppCompatActivity {
         date = (TextView) findViewById(R.id.txt_dateValue);
         time = (TextView) findViewById(R.id.txt_timeValue);
         photo = (ImageView) findViewById(R.id.img_photo);
-        statusIndicator = (ImageView) findViewById(R.id.status);
+        statusIndicator = (FloatingActionButton) findViewById(R.id.status);
         status = (TextView) findViewById(R.id.txt_statusValue);
     }
 
@@ -80,11 +86,15 @@ public class ViewReportActivity extends AppCompatActivity {
 
                 if(report.isFinePaid()) {
                     status.setText("Paid");
-                    statusIndicator.setBackgroundResource(R.drawable.circle_green);
+                    statusIndicator.setEnabled(false);
+                    statusIndicator.setImageResource(R.drawable.ic_true);
                 }
                 else {
                     status.setText("Pending");
-                    statusIndicator.setBackgroundResource(R.drawable.circle_yellow);
+                    statusIndicator.setEnabled(true);
+                    statusIndicator.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FDD835")));
+                    statusIndicator.setImageResource(R.drawable.ic_false);
+
                 }
 
                 Glide.with(getApplicationContext()).using(new FirebaseImageLoader()).load(pathReference).into(photo);
@@ -96,5 +106,16 @@ public class ViewReportActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void updateStatus() {
+        Bundle bundle = getIntent().getExtras();
+        String reportID = bundle.getString("reportID");
+
+        DatabaseReference dbReference = FirebaseDatabase.getInstance().getReference("reports");
+        dbReference.child(reportID).child("finePaid").setValue(true);
+        statusIndicator.setEnabled(false);
+        statusIndicator.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4CAF50")));
+        statusIndicator.setImageResource(R.drawable.ic_true);
     }
 }

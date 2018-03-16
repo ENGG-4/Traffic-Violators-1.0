@@ -16,6 +16,11 @@
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_search"
             android:title="Search" />
+        <item
+            android:id="@+id/nav_alert"
+            android:icon="@drawable/ic_alert"
+            android:title="Alert" />
+
     </group>
 
     <item android:title="Personalize">

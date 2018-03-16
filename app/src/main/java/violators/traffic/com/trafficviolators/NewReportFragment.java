@@ -9,12 +9,12 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -85,7 +85,7 @@ public class NewReportFragment extends Fragment {
                 new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        txt_reportDT.setText(dayOfMonth + "-" + (month+1) + "-" + year);
+                        txt_reportDT.setText(dayOfMonth + "/" + (month+1) + "/" + year);
                     }
                 },mYear,mMonth,mDay).show();
             }
@@ -125,7 +125,7 @@ public class NewReportFragment extends Fragment {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
-        txt_reportDT.setText(day + "-" + (month+1) + "-" + year);
+        txt_reportDT.setText(day + "/" + (month+1) + "/" + year);
     }
 
     @Override
@@ -186,7 +186,7 @@ public class NewReportFragment extends Fragment {
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         try {
-            datetime = new SimpleDateFormat("dd-MM-yy HH:mm:ss").parse(txt_reportDT.getText().toString());
+            datetime = new SimpleDateFormat("dd/MM/yy HH:mm:ss").parse(txt_reportDT.getText().toString());
         }
         catch(ParseException e) { }
         return new Report(vehicleNo,licenseNo,reason,description,fine,finePaid,datetime,uid);

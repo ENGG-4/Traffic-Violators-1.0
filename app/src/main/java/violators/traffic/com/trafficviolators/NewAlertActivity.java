@@ -1,26 +1,19 @@
 package violators.traffic.com.trafficviolators;
 
 import android.app.DatePickerDialog;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.location.Location;
-import android.location.LocationListener;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,14 +21,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,8 +37,6 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.sql.Time;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -69,7 +54,6 @@ public class NewAlertActivity extends AppCompatActivity {
     double startLatitude = 0.0;
     double startLongitude = 0.0;
     GPSTracker gps;
-
 
     private static final int SELECTED_PIC = 1;
     private String[] galleryPermissions = {android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -121,7 +105,7 @@ public class NewAlertActivity extends AppCompatActivity {
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
-        txt_alertDate.setText(day + "-" + (month+1) + "-" + year);
+        txt_alertDate.setText(day + "/" + (month+1) + "/" + year);
     }
 
     private void updateDate() {
@@ -133,7 +117,7 @@ public class NewAlertActivity extends AppCompatActivity {
         new DatePickerDialog(NewAlertActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                txt_alertDate.setText(dayOfMonth + "-" + (month+1) + "-" + year);
+                txt_alertDate.setText(dayOfMonth + "/" + (month+1) + "/" + year);
             }
         },mYear,mMonth,mDay).show();
     }
@@ -189,7 +173,6 @@ public class NewAlertActivity extends AppCompatActivity {
     private Alert getAlert() {
         String startUID = FirebaseAuth.getInstance().getUid();
 
-
         String closeUID = "";
         String closeDate = "";
         double closeLatitude = 0.0;
@@ -206,7 +189,7 @@ public class NewAlertActivity extends AppCompatActivity {
 
         Date startDate = new Date();
         try {
-            startDate = new SimpleDateFormat("dd-MM-yy HH:mm:ss").parse(txt_alertDate.getText().toString());
+            startDate = new SimpleDateFormat("dd/MM/yy HH:mm:ss").parse(txt_alertDate.getText().toString());
         }
         catch (ParseException e) {}
 
