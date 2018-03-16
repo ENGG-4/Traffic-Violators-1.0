@@ -220,25 +220,6 @@
                     android:textSize="18sp"
                     android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
-                <TextView
-                    android:id="@+id/txt_startLocationTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Location"
-                    android:textColor="@color/colorSecondaryText"
-                    android:layout_toEndOf="@id/txt_view_img4"
-                    android:layout_below="@id/txt_startUserValue"
-                    android:layout_marginTop="8dp"/>
-
-                <TextView
-                    android:id="@+id/txt_startLocationValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toEndOf="@id/txt_view_img4"
-                    android:layout_below="@id/txt_startLocationTitle"
-                    android:textSize="18sp"
-                    android:textAppearance="@android:style/TextAppearance.Material.Large"/>
-
 
                 <TextView
                     android:id="@+id/txt_startDateTitle"
@@ -247,7 +228,7 @@
                     android:text="Date"
                     android:textColor="@color/colorSecondaryText"
                     android:layout_toEndOf="@id/txt_view_img4"
-                    android:layout_below="@id/txt_startLocationValue"
+                    android:layout_below="@id/txt_startUserValue"
                     android:layout_marginTop="8dp"/>
 
                 <TextView
@@ -276,7 +257,7 @@
                     android:textColor="@color/colorSecondaryText"
                     android:layout_marginTop="8dp"
                     android:layout_toEndOf="@id/space4"
-                    android:layout_below="@id/txt_startLocationValue"/>
+                    android:layout_below="@id/txt_startUserValue"/>
 
                 <TextView
                     android:id="@+id/txt_startTimeValue"
@@ -325,25 +306,6 @@
                     android:textAppearance="@android:style/TextAppearance.Material.Large" />
 
                 <TextView
-                    android:id="@+id/txt_closeLocationTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Location"
-                    android:textColor="@color/colorSecondaryText"
-                    android:layout_toEndOf="@id/txt_view_img5"
-                    android:layout_below="@id/txt_closeUserValue"
-                    android:layout_marginTop="8dp"/>
-
-                <TextView
-                    android:id="@+id/txt_closeLocationValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textAppearance="@android:style/TextAppearance.Material.Large"
-                    android:layout_toEndOf="@id/txt_view_img5"
-                    android:layout_below="@id/txt_closeLocationTitle" />
-
-                <TextView
                     android:id="@+id/txt_closeDateTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -351,7 +313,7 @@
                     android:textColor="@color/colorSecondaryText"
                     android:layout_marginTop="8dp"
                     android:layout_toEndOf="@id/txt_view_img5"
-                    android:layout_below="@id/txt_closeLocationValue"/>
+                    android:layout_below="@id/txt_closeUserValue"/>
 
                 <TextView
                     android:id="@+id/txt_closeDateValue"
@@ -379,7 +341,7 @@
                     android:textColor="@color/colorSecondaryText"
                     android:layout_marginTop="8dp"
                     android:layout_toEndOf="@id/space5"
-                    android:layout_below="@id/txt_closeLocationValue"/>
+                    android:layout_below="@id/txt_closeUserValue"/>
 
                 <TextView
                     android:id="@+id/txt_closeTimeValue"

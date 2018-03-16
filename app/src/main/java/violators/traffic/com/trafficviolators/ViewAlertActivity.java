@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class ViewAlertActivity extends AppCompatActivity {
-    private TextView vehicleNo,vehicleType,vehicleModel,vehicleColor,description,startdate,starttime,startlocation,startuser,closedate,closetime,closelocation,closeuser;
+    private TextView vehicleNo,vehicleType,vehicleModel,vehicleColor,description,startdate,starttime,startuser,closedate,closetime,closeuser;
     private ImageView photo;
 
     @Override
@@ -46,12 +46,10 @@ public class ViewAlertActivity extends AppCompatActivity {
         description = (TextView) findViewById(R.id.txt_descriptionValue);
         photo = (ImageView) findViewById(R.id.img_photo);
 
-        startlocation = (TextView) findViewById(R.id.txt_startLocationValue);
         startuser = (TextView) findViewById(R.id.txt_startUserValue);
         startdate = (TextView) findViewById(R.id.txt_startDateValue);
         starttime = (TextView) findViewById(R.id.txt_startTimeValue);
 
-        closelocation = (TextView) findViewById(R.id.txt_closeLocationValue);
         closeuser = (TextView) findViewById(R.id.txt_closeUserValue);
         closedate = (TextView) findViewById(R.id.txt_closeDateValue);
         closetime = (TextView) findViewById(R.id.txt_closeTimeValue);
@@ -113,25 +111,6 @@ public class ViewAlertActivity extends AppCompatActivity {
                         @Override
                         public void onCancelled(DatabaseError databaseError) { }
                     });
-                }
-
-                //get addresses based on latitude and longitude
-                try {
-                    if(alert.getStartLongitude() != 0 || alert.getStartLongitude() != 0) {
-                        List<Address> startAdresses = geocoder.getFromLocation(alert.getStartLongitude(),alert.getStartLongitude(),1);
-                        startlocation.setText(startAdresses.get(0).getAddressLine(0) + ", " + startAdresses.get(0).getAddressLine(1) + ", " + startAdresses.get(0).getAddressLine(2));
-                    }
-
-                    if(alert.getCloseLatitude() != 0 || alert.getCloseLongitude() != 0) {
-                        List<Address> closeAdresses = geocoder.getFromLocation(alert.getCloseLatitude(),alert.getCloseLongitude(),1);
-                        closelocation.setText(closeAdresses.get(0).getAddressLine(0) + ", " + closeAdresses.get(0).getAddressLine(1) + ", " + closeAdresses.get(0).getAddressLine(2));
-                    }
-                }
-                catch (IOException e) {
-
-                }
-                catch (IllegalArgumentException e) {
-
                 }
 
                 progressDialog.dismiss();

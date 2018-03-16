@@ -1,6 +1,7 @@
 package violators.traffic.com.trafficviolators;
 
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -10,6 +11,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationListener;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -28,6 +31,11 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -58,7 +66,10 @@ public class NewAlertActivity extends AppCompatActivity {
     private FloatingActionButton btn_addPhoto;
     private ImageView img_photo;
     private Uri filePath;
+    double startLatitude = 0.0;
+    double startLongitude = 0.0;
     GPSTracker gps;
+
 
     private static final int SELECTED_PIC = 1;
     private String[] galleryPermissions = {android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -91,6 +102,8 @@ public class NewAlertActivity extends AppCompatActivity {
                     startActivity(new Intent(Intent.ACTION_VIEW,filePath));
             }
         });
+
+        gps = new GPSTracker(this,NewAlertActivity.this);
     }
 
     private void initialize() {
@@ -109,8 +122,6 @@ public class NewAlertActivity extends AppCompatActivity {
         int month = c.get(Calendar.MONTH);
         int day = c.get(Calendar.DAY_OF_MONTH);
         txt_alertDate.setText(day + "-" + (month+1) + "-" + year);
-
-        gps = new GPSTracker(this,NewAlertActivity.this);
     }
 
     private void updateDate() {
@@ -177,8 +188,7 @@ public class NewAlertActivity extends AppCompatActivity {
 
     private Alert getAlert() {
         String startUID = FirebaseAuth.getInstance().getUid();
-        double startLatitude = 0.0;;
-        double startLongitude = 0.0;;
+
 
         String closeUID = "";
         String closeDate = "";
@@ -267,17 +277,6 @@ public class NewAlertActivity extends AppCompatActivity {
                     }
                 }
             });
-
-
-
-
-
-
-
-
-
-
-
         }
     }
 
@@ -297,12 +296,10 @@ public class NewAlertActivity extends AppCompatActivity {
         else if(txt_description.getText().toString().isEmpty()) {
             Toast.makeText(this,"Description is required",Toast.LENGTH_SHORT).show();
             return false;
-        }
-        else if(!gps.canGetLocation()) {
+        } else if(!gps.canGetLocation()) {
             gps.showSettingsAlert();
             return false;
-        }
-        else
+        } else
             return true;
     }
 }
