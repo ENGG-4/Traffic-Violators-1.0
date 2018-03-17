@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     Report report = postSnapshot.getValue(Report.class);
-                    if(report.isFinePaid())
+                    if(!report.isFinePaid())
                         countPendingReport++;
 
                     countTotalReport++;

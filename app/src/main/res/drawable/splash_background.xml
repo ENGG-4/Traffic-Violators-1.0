@@ -3,7 +3,7 @@
 
     <item android:drawable="@color/colorPrimary"/>
 
-    <item android:gravity="center" android:width="60dp" android:height="60dp">
+    <item android:gravity="center" >
         <bitmap
             android:gravity="center_horizontal|center_vertical"
             android:src="@drawable/logo"/>
