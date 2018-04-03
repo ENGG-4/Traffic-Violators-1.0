@@ -138,11 +138,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        if(id == R.id.action_search) {
+        if(id == R.id.action_search)
             startActivity(new Intent(MainActivity.this,SearchActivity.class));
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -181,8 +178,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void setAlertList() {
-        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
-        Query query = databaseRef.child("alerts").orderByChild("closeUID").equalTo("");
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("alerts");
+        Query query = databaseRef.orderByChild("closeUID").equalTo("");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

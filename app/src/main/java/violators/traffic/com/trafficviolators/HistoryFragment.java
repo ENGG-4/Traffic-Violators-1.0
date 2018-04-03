@@ -53,8 +53,6 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
     }
 
     public void initialize(View view) {
-
-
         emptyText = (TextView) view.findViewById(R.id.empty_view);
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_report);
         radioFilter = (RadioGroup) view.findViewById(R.id.radio_filter);
@@ -81,8 +79,8 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
     }
 
     public void setReportList() {
-        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
-        Query query = databaseRef.child("reports").orderByChild("userID").equalTo(FirebaseAuth.getInstance().getUid());
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("reports");
+        Query query = databaseRef.orderByChild("userID").equalTo(FirebaseAuth.getInstance().getUid());
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

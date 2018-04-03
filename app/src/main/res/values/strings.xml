@@ -57,6 +57,11 @@
     <string name="hint_fine">Fine</string>
     <string name="btn_addphoto">Add photo</string>
     <string name="textview_reason">Reason</string>
+    <string name="statistics">STATISTICS</string>
+    <string name="reports">Reports</string>
+    <string name="pending">Pending</string>
+    <string name="completed">Completed</string>
+    <string name="alerts">ALERTS</string>
 
     <string-array name="reason_array">
         <item>Speed limit</item>
