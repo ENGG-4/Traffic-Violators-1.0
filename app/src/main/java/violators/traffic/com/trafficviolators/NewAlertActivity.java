@@ -178,7 +178,7 @@ public class NewAlertActivity extends AppCompatActivity {
         double closeLatitude = 0.0;
         double closeLongitude = 0.0;
 
-        String vehicleNo = txt_vehicleNo.getText().toString();
+        String vehicleNo = txt_vehicleNo.getText().toString().toUpperCase();
         String vehicleModel = txt_vehicleModel.getText().toString();
         String vehicleColor = txt_vehicleColor.getText().toString();
         String vehicleType = sp_type.getSelectedItem().toString();
@@ -286,5 +286,3 @@ public class NewAlertActivity extends AppCompatActivity {
             return true;
     }
 }
-
-
