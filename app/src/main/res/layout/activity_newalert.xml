@@ -64,7 +64,7 @@
                     style="@style/editTextAlertStyle"
                     android:layout_toEndOf="@id/space"
                     android:layout_below="@id/sp_vehicleType"
-                    android:drawableRight="@drawable/ic_license"
+                    android:drawableStart="@drawable/ic_license"
                     android:layout_marginTop="12dp"
                     android:hint="Vehicle no." />
 
@@ -104,7 +104,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_toEndOf="@id/space2"
                     android:layout_alignBaseline="@id/txt_infoTitle"
-                    android:drawableRight="@drawable/ic_vehicle"
+                    android:drawableStart="@drawable/ic_vehicle"
                     android:hint="Vehicle model" />
 
                 <EditText
@@ -113,7 +113,7 @@
                     android:layout_below="@+id/txt_vehicleModel"
                     android:layout_marginTop="12dp"
                     android:layout_toEndOf="@id/space2"
-                    android:drawableRight="@drawable/ic_color"
+                    android:drawableStart="@drawable/ic_color"
                     android:hint="Vehicle color" />
 
 
@@ -155,7 +155,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@id/space5"
                     android:clickable="true"
-                    android:drawableRight="@drawable/ic_date"
+                    android:drawableStart="@drawable/ic_date"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
                     android:hint="Date"
@@ -200,7 +200,7 @@
                     android:layout_alignBaseline="@id/txt_descriptionTitle"
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@id/space4"
-                    android:drawableRight="@drawable/ic_description_default"
+                    android:drawableStart="@drawable/ic_description_default"
                     android:hint="Alert description" />
 
 

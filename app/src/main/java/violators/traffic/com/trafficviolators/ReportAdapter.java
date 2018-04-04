@@ -2,17 +2,10 @@ package violators.traffic.com.trafficviolators;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -45,6 +38,10 @@ public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.MyViewHold
         holder.time.setText(reportItem.getReportTime());
         holder.fine.setText(reportItem.getFine());
         holder.reportID.setText(reportItem.getReportID());
+        if(reportItem.isFinePaid())
+            holder.listItem.setBackgroundResource(R.drawable.card_border_paid);
+        else
+            holder.listItem.setBackgroundResource(R.drawable.card_border_pending);
 
         holder.listItem.setOnClickListener(new View.OnClickListener() {
             @Override

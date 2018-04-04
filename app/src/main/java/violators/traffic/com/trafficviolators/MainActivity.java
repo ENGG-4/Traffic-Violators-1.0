@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fab_report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this ,ReportActivity.class).putExtra("select",0));
+                startActivity(new Intent(MainActivity.this ,ReportActivity.class).putExtra("select",0).putExtra("option",0));
             }
         });
 
@@ -61,6 +62,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this,NewAlertActivity.class));
+            }
+        });
+
+        LinearLayout btn_reportsAll = (LinearLayout) findViewById(R.id.btn_reportsAll);
+        btn_reportsAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,ReportActivity.class).putExtra("select",1).putExtra("option",0));
+            }
+        });
+
+        LinearLayout btn_reportsPending = (LinearLayout) findViewById(R.id.btn_reportsPending);
+        btn_reportsPending.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,ReportActivity.class).putExtra("select",1).putExtra("option",1));
+            }
+        });
+
+        LinearLayout btn_reports_Completed = (LinearLayout) findViewById(R.id.btn_reportsCompleted);
+        btn_reports_Completed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,ReportActivity.class).putExtra("select",1).putExtra("option",2));
             }
         });
 
@@ -151,9 +176,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_search) {
             startActivity(new Intent(MainActivity.this,SearchActivity.class));
         } else if (id == R.id.nav_report) {
-            startActivity(new Intent(MainActivity.this,ReportActivity.class).putExtra("select",0));
+            startActivity(new Intent(MainActivity.this,ReportActivity.class).putExtra("select",0).putExtra("option",0));
         } else if (id == R.id.nav_history) {
-            startActivity(new Intent(MainActivity.this,ReportActivity.class).putExtra("select",1));
+            startActivity(new Intent(MainActivity.this,ReportActivity.class).putExtra("select",1).putExtra("option",0));
         } else if (id == R.id.nav_alert) {
             startActivity(new Intent(MainActivity.this,AlertActivity.class));
         } else if (id == R.id.nav_logout) {

@@ -117,5 +117,6 @@ public class ViewReportActivity extends AppCompatActivity {
         statusIndicator.setEnabled(false);
         statusIndicator.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#4CAF50")));
         statusIndicator.setImageResource(R.drawable.ic_true);
+        status.setText("Paid");
     }
 }

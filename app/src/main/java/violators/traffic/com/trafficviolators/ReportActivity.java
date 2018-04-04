@@ -41,9 +41,14 @@ public class ReportActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
 
+        Bundle args = new Bundle();
+        args.putInt("option",getIntent().getExtras().getInt("option"));
+        HistoryFragment history = new HistoryFragment();
+        history.setArguments(args);
+
         ViewPageAdapter adapter = new ViewPageAdapter(getSupportFragmentManager());
         adapter.AddFragment(new NewReportFragment(),"New Report");
-        adapter.AddFragment(new HistoryFragment(),"History");
+        adapter.AddFragment(history,"History");
 
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(id);

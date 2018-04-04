@@ -14,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -39,6 +40,8 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
     private ReportAdapter reportAdapter;
     private TextView emptyText;
     private RadioGroup radioFilter;
+    private RadioButton rbtn_pending,rbtn_completed,rbtn_all;
+    int options;
 
     public HistoryFragment() {}
 
@@ -47,8 +50,12 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_history,container,false);
         setHasOptionsMenu(true);
+
+        Bundle args = getArguments();
+        options = args.getInt("option", 0);
+
         initialize(view);
-        setReportList();
+        getReportList();
         return view;
     }
 
@@ -56,6 +63,9 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
         emptyText = (TextView) view.findViewById(R.id.empty_view);
         recyclerView = (RecyclerView) view.findViewById(R.id.rv_report);
         radioFilter = (RadioGroup) view.findViewById(R.id.radio_filter);
+        rbtn_pending = (RadioButton) view.findViewById(R.id.rb_pending);
+        rbtn_completed = (RadioButton) view.findViewById(R.id.rb_completed);
+        rbtn_all = (RadioButton) view.findViewById(R.id.rb_all);
 
         reportAdapter = new ReportAdapter(this.getContext(),reportList);
         recyclerView.setHasFixedSize(true);
@@ -78,7 +88,7 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
         });
     }
 
-    public void setReportList() {
+    public void getReportList() {
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("reports");
         Query query = databaseRef.orderByChild("userID").equalTo(FirebaseAuth.getInstance().getUid());
         query.addValueEventListener(new ValueEventListener() {
@@ -100,7 +110,6 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
                             getItemBackground(report.getReason()));
                     reportList.add(item);
                 }
-
                 if(reportList.isEmpty()) {
                     recyclerView.setVisibility(View.GONE);
                     emptyText.setVisibility(View.VISIBLE);
@@ -109,12 +118,26 @@ public class HistoryFragment extends Fragment implements SearchView.OnQueryTextL
                     emptyText.setVisibility(View.GONE);
                     recyclerView.setAdapter(reportAdapter);
                 }
+
+                if(options == 1) {
+                    rbtn_pending.setChecked(true);
+                    options = 0;
+                }
+                else if(options == 2) {
+                    rbtn_completed.setChecked(true);
+                    options = 0;
+                }
+                else {
+                    rbtn_all.setChecked(true);
+                }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
+
+
         });
     }
 

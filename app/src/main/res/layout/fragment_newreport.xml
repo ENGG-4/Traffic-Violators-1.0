@@ -65,7 +65,7 @@
                     android:id="@+id/txt_vehicleNo"
                     style="@style/editTextReportStyle"
                     android:hint="@string/hint_vehicleno"
-                    android:drawableLeft="@drawable/ic_vehicle"/>
+                    android:drawableStart="@drawable/ic_vehicle"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -78,7 +78,7 @@
                     android:id="@+id/txt_driverLicense"
                     style="@style/editTextReportStyle"
                     android:hint="@string/hint_licenseno"
-                    android:drawableLeft="@drawable/ic_license"/>
+                    android:drawableStart="@drawable/ic_license"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -99,7 +99,7 @@
                         style="@style/editTextReportStyle"
                         android:hint="@string/hint_fine"
                         android:inputType="number"
-                        android:drawableLeft="@drawable/ic_fine"/>
+                        android:drawableStart="@drawable/ic_fine"/>
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -117,7 +117,7 @@
                         android:inputType="datetime"
                         android:longClickable="false"
                         android:focusableInTouchMode="false"
-                        android:drawableLeft="@drawable/ic_date"/>
+                        android:drawableStart="@drawable/ic_date"/>
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -132,7 +132,7 @@
                     android:id="@+id/txt_description"
                     style="@style/editTextReportStyle"
                     android:hint="@string/hint_description"
-                    android:drawableLeft="@drawable/ic_description_default"/>
+                    android:drawableStart="@drawable/ic_description_default"/>
 
             </android.support.design.widget.TextInputLayout>
 
